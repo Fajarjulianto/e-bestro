@@ -162,7 +162,7 @@ function Semester(): JSX.Element {
   }
 
   return (
-    <div className="bg-primary w-full h-64 rounded-lg mt-2 flex items-center">
+    <div className="bg-primary w-full h-64 rounded-2xl mt-2 flex items-center">
       <table className="h-44 w-full bg-white rounded-lg font-ubuntu">
         <thead className="bg-[#F7F9FC] rounded-t-lg text-[#45474B] font-bold">
           <tr className="h-7 border-2 rounded-t-lg border-[#6F7175] text-[#C4DEE9]font-bold text-sm flex justify-start">
@@ -223,7 +223,7 @@ function Semester(): JSX.Element {
               <td className="flex w-[10%] justify-center items-center border-y-1">
                 {index + 1}
               </td>
-              <td className="flex justify-center items-center w-[20%] border-y-1">
+              <td className="flex justify-center text-center items-center w-[20%] border-y-1">
                 Semester {data.semester}
               </td>
               <td className="flex justify-center items-center w-[30%] border-y-1">
@@ -232,8 +232,28 @@ function Semester(): JSX.Element {
               <td className="flex justify-center items-center w-[20%] border-y-1">
                 {data.date}
               </td>
-              <td className="flex justify-center items-center w-[20%] border-y-1">
-                {data.status}
+              <td
+                className={`flex justify-center items-center w-[20%] border-y-1 `}
+              >
+                <span
+                  className={`text-center sm:px-4 px-1 py-1 sm:py-2 rounded-2xl text-xs font-light sm:font-bold ${
+                    data.status === "Verified" ? "bg-greenBg" : ""
+                  }
+                  ${data.status === "Decline" ? "bg-redBg" : ""}
+                  ${data.status === "Draft" ? "bg-purpleBg" : ""}
+                  ${data.status === "Waiting Approval" ? "bg-yellowBg" : ""}`}
+                >
+                  <span
+                    className={`rounded-full inline-block h-2 w-2 sm:mr-2 mr-1 ${
+                      data.status === "Verified" ? "bg-greenDot" : ""
+                    } ${data.status === "Decline" ? "bg-redDot" : ""}
+                    ${data.status === "Draft" ? "bg-purpleDot" : ""}
+                    ${
+                      data.status === "Waiting Approval" ? "bg-yellowDot" : ""
+                    }`}
+                  ></span>
+                  {data.status}
+                </span>
               </td>
             </tr>
           ))}

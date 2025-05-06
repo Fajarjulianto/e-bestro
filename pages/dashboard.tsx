@@ -3,6 +3,7 @@ import Banner from "@/components/dashboard/Banner";
 import PerformanceChart from "@/components/dashboard/PerformanceChart";
 import Card from "@/components/dashboard/Card";
 import Semester from "@/components/dashboard/Semester";
+import EventCalendar from "@/components/dashboard/EventCalendar";
 
 function Dashboard(): JSX.Element {
   return (
@@ -13,8 +14,9 @@ function Dashboard(): JSX.Element {
           <PerformanceChart />
           <Semester />
         </div>
-        <div className="w-full mt-2">
+        <div className="w-full mt-2 p-4">
           <Card />
+          <EventCalendar />
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ const chartConfig = {} satisfies ChartConfig;
 
 export default function PerformanceChart() {
   return (
-    <div className="w-full mt-2">
+    <div className="w-full mt-2 rounded-2xl bg-white">
       <Card>
         <CardHeader>
           <CardDescription className="font-bold font-roboto text-black flex gap-2">
@@ -131,11 +131,11 @@ export default function PerformanceChart() {
               </div>
               <span className="flex gap-2">
                 <div className="flex">
-                  <div className="mr-2 rounded-full h-4 w-4 bg-blue"></div>
+                  <div className="mr-2 rounded-full h-4 w-4 bg-pink"></div>
                   <div className="font-roboto">Realisasi</div>
                 </div>
                 <div className="flex">
-                  <div className="mr-2 rounded-full h-4 w-4 bg-pink"></div>
+                  <div className="mr-2 rounded-full h-4 w-4 bg-blue"></div>
                   <div className="font-roboto">Target</div>
                 </div>
               </span>
