@@ -1,0 +1,24 @@
+import React, { JSX } from "react";
+import Banner from "@/components/dashboard/Banner";
+import PerformanceChart from "@/components/dashboard/PerformanceChart";
+import Card from "@/components/dashboard/Card";
+import Semester from "@/components/dashboard/Semester";
+
+function Dashboard(): JSX.Element {
+  return (
+    <div className="w-full pb-4 h-[3000px] md:h-[2000px] lg:h-[1600px] bg-mainBG">
+      <Banner />
+      <div className="grid h-[600px] lg:grid-cols-2 m-4">
+        <div className="w-full grid grid-cols-1">
+          <PerformanceChart />
+          <Semester />
+        </div>
+        <div className="w-full mt-2">
+          <Card />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Dashboard;
