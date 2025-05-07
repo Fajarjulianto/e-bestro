@@ -1,0 +1,31 @@
+import Image from 'next/image';
+
+export default function RightPanel() {
+  return (
+    <div className="relative hidden lg:flex w-1/2 items-center justify-center overflow-hidden bg-secondary">
+      {/* Decorative Shapes */}
+      <div className="absolute w-[300px] h-[309px] bg-primary rounded-full top-[100px] left-[-170px] opacity-90 z-0"></div>
+      <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[1%] left-[80%] opacity-80 z-0"></div>
+      <div className="absolute w-[700px] h-[700px] bg-primary rounded-full top-[60%] left-[60%] opacity-80 z-0"></div>
+      <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[120%] left-[30%] opacity-80 z-0"></div>
+      <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[98%] left-[10%] opacity-80 z-0"></div>
+
+      <div className="z-10 text-center text-white px-10">
+        <div className="absolute top-[100px] left-[200px]">
+          <h1 className="text-3xl lg:text-4xl font-semibold mb-2 leading-tight">
+            Welcome to<br />
+            <span className="font-bold text-white text-4xl lg:text-5xl">e-BESTRO</span>
+          </h1>
+          <p className="text-sm text-gray-100 mt-1">Login to access your account</p>
+        </div>
+        <Image
+          src="/welcome-illustration.png"
+          alt="Ilustrasi"
+          width={700}
+          height={700}
+          className="mt-8 mx-auto bottom-10"
+        />
+      </div>
+    </div>
+  );
+}
