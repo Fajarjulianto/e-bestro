@@ -34,12 +34,12 @@ function Card(): JSX.Element {
   console.log(cardData);
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto ">
       <div className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {cardData.map((data, index) => (
           <div
             key={index}
-            className="font-poppins flex flex-col md:h-72 w-full justify-between items-center bg-white rounded-lg p-4"
+            className="font-poppins flex flex-col md:h-92 w-full justify-between items-center bg-white rounded-lg px-4 py-10"
           >
             <div
               style={{ backgroundColor: data.backgroundColor }}
@@ -52,7 +52,7 @@ function Card(): JSX.Element {
             </h2>
             <p className="text-3xl font-bold text-[#2D2D2D]">{data.number}</p>
             <Link
-              className="text-secondary flex flex-col items-center sm:flex-row text-sm"
+              className="text-secondary flex flex-col items-center sm:flex-row text-sm sm:text-md sm:font-bold"
               href={"/details"}
             >
               Lihat Detail

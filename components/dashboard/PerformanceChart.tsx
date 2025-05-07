@@ -98,7 +98,9 @@ export default function PerformanceChart() {
 
               <ChartTooltip
                 cursor={false}
-                content={<ChartTooltipContent indicator="dot" />}
+                content={
+                  <ChartTooltipContent indicator="dot" className="bg-white" />
+                }
               />
               <Line
                 dataKey="Target"

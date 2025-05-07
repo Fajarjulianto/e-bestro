@@ -7,14 +7,14 @@ import EventCalendar from "@/components/dashboard/EventCalendar";
 
 function Dashboard(): JSX.Element {
   return (
-    <div className="w-full pb-4 h-[3000px] md:h-[2000px] lg:h-[1600px] bg-mainBG">
+    <div className="w-full pb-4 bg-mainBG">
       <Banner />
-      <div className="grid h-[600px] lg:grid-cols-2 m-4">
+      <div className="grid h-full lg:grid-cols-2 m-4">
         <div className="w-full grid grid-cols-1">
           <PerformanceChart />
           <Semester />
         </div>
-        <div className="w-full mt-2 p-4">
+        <div className="w-full px-4 pt-2">
           <Card />
           <EventCalendar />
         </div>

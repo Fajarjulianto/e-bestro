@@ -162,7 +162,7 @@ function Semester(): JSX.Element {
   }
 
   return (
-    <div className="bg-primary w-full h-64 rounded-2xl mt-2 flex items-center">
+    <div className="bg-primary w-full h-72 rounded-2xl mt-2 flex items-center">
       <table className="h-44 w-full bg-white rounded-lg font-ubuntu">
         <thead className="bg-[#F7F9FC] rounded-t-lg text-[#45474B] font-bold">
           <tr className="h-7 border-2 rounded-t-lg border-[#6F7175] text-[#C4DEE9]font-bold text-sm flex justify-start">
@@ -218,7 +218,7 @@ function Semester(): JSX.Element {
           {filteredData.map((data, index) => (
             <tr
               key={index}
-              className="h-10 text-[#45474B] font-bold text-sm flex justify-start"
+              className="h-14 text-[#45474B] font-bold text-sm flex justify-start"
             >
               <td className="flex w-[10%] justify-center items-center border-y-1">
                 {index + 1}
