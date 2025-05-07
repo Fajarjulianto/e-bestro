@@ -32,9 +32,9 @@ const menuItems: MenuItem[] = [
 
 export default function SidebarUser(): JSX.Element {
   return (
-    <aside className="bg-green-700 text-white w-64 min-h-screen flex flex-col justify-between">
+    <aside className="bg-secondary text-white w-64 min-h-screen flex flex-col justify-between">
       <div>
-        <div className="text-2xl font-bold p-6 border-b border-green-600">e-BESTRO</div>
+        <div className="text-2xl font-bold p-6 border-b border-secondary">e-BESTRO</div>
         <nav className="p-4">
           <ul className="space-y-2">
             {menuItems.map((item) => (
@@ -51,8 +51,8 @@ export default function SidebarUser(): JSX.Element {
           </ul>
         </nav>
       </div>
-      <div className="p-4 border-t border-green-600">
-        <button className="flex items-center gap-3 w-full hover:bg-green-600 px-3 py-2 rounded">
+      <div className="p-4 border-t border-secondary">
+        <button className="flex items-center gap-3 w-full hover:bg-green-800 px-3 py-2 rounded">
           <FiLogOut />
           Logout Account
         </button>

@@ -19,17 +19,14 @@ export default function Login(): JSX.Element {
       </Head>
 
       <div className="flex min-h-screen">
-        {/* KIRI: FORM LOGIN */}
         <div className="w-full lg:w-1/2 flex flex-col justify-center px-10 md:px-20 bg-[#F8F8F8]">
-          {/* LOGO */}
           <div className="flex items-center justify-center gap-4 mb-10">
             <img src="/petrokimia-logo.png" alt="Petrokimia Gresik" className="h-12" />
             <img src="/bestro-logo.png" alt="Bestro" className="h-12" />
           </div>
-
           <h1 className="text-3xl font-bold text-[#3A3A3A]">Login</h1>
           <p className="text-gray-500 mb-8">Enter your account details</p>
-
+          
           <form onSubmit={handleSubmit} className="space-y-5">
             <InputField
               label=""
@@ -66,25 +63,24 @@ export default function Login(): JSX.Element {
 <div className="relative hidden lg:flex w-1/2 items-center justify-center overflow-hidden bg-secondary">
   {/* Decorative Shapes */}
   <div className="absolute w-[300px] h-[309px] bg-primary rounded-full top-[100px] left-[-170px] opacity-90  z-0"></div>
-   <div className="absolute   opacity-80 inset-0   z-0">
-    <image src="/blob.svg" className='w-full h-full object-cover'/>
-    </div>
-  {/* <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[40%] left-[10%] opacity-80   z-0"></div>
-  <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[40%] left-[10%] opacity-80   z-0"></div>
-  <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[40%] left-[10%] opacity-80   z-0"></div>
-  <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[40%] left-[10%] opacity-80   z-0"></div>  */}
+  <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[1%] left-[80%] opacity-80   z-0"></div>
+  <div className="absolute w-[700px] h-[700px] bg-primary rounded-full top-[60%] left-[60%] opacity-80   z-0"></div>
+  <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[120%] left-[30%] opacity-80   z-0"></div>
+  <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[98%] left-[10%] opacity-80   z-0"></div>
 
   {/* Teks + Ilustrasi */}
   <div className="z-10 text-center text-white px-10">
-    <h1 className="text-3xl lg:text-4xl font-semibold mb-2 leading-tight">
+    <div className=" z-99 absolute top-[100px] left-[200px]">
+    <h1 className="text-3xl lg:text-4xl font-semibold mb-2 leading-tight ">
       Welcome to<br />
       <span className="font-bold text-white text-4xl lg:text-5xl">e-BESTRO</span>
     </h1>
     <p className="text-sm text-gray-100 mt-1">Login to access your account</p>
+    </div>
     <img
       src="/welcome-illustration.png"
       alt="Ilustrasi"
-      className="mt-8 w-[280px] lg:w-[350px] mx-auto"
+      className="mt-8 w-[700px] lg:w-[700px] mx-auto bottom-10"
     />
   </div>
 </div>
