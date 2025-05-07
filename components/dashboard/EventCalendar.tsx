@@ -4,6 +4,7 @@ import React, { JSX } from "react";
 // import Image from "next/image";
 // import Link from "next/link";
 import EventCard from "./EventCard";
+import Autoplay from "embla-carousel-autoplay";
 
 import {
   Carousel,
@@ -98,7 +99,13 @@ function EventCalendar(): JSX.Element {
         </p>
       </div>
       <div className="h-96 w-full">
-        <Carousel>
+        <Carousel
+          plugins={[
+            Autoplay({
+              delay: 2000,
+            }),
+          ]}
+        >
           <CarouselContent className="flex h-full w-66 sm:w-full">
             {dataCarousel.map((data, index) => (
               <CarouselItem
