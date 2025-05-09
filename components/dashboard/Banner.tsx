@@ -7,7 +7,7 @@ function Banner(): JSX.Element {
   return (
     <div className="bg-primary md:pl-8 lg:pl-50 w-full h-content md:h-56 flex flex-col md:flex-row md:justify-between items-center px-6 pt-6">
       <div>
-        <div className="w-full">
+        <div className="w-72 lg:w-full">
           {/* Greetings */}
           <p className="font-bold text-2xl font-poppins">
             &ldquo;You have proven your potential. Now, Go Beyond!&rdquo;

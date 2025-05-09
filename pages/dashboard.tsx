@@ -18,8 +18,8 @@ function Dashboard(): JSX.Element {
     <SidebarProvider>
       <AppSidebar />
 
-      <main className="w-full h-full pb-4 bg-mainBG">
-        <SidebarTrigger className="absolute top-4 bg-white" />
+      <main className="w-full h-full pb-4 bg-mainBG relative">
+        <SidebarTrigger className="absolute top-9 bg-white md:-left-4 z-30 border-2 border-mainBG" />
         <Banner />
         <div className="grid h-full lg:grid-cols-2 m-4">
           <div className="w-full grid grid-cols-1">

@@ -3,6 +3,7 @@
 import { ChevronRight } from "lucide-react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import {
   Collapsible,
@@ -56,8 +57,16 @@ export function NavMain({
                       alt="sidebar icon"
                     />
                   )}
-                  <span>{item.title}</span>
-                  <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  {item.url ? (
+                    <Link href={item.url || "#"}>
+                      <span>{item.title}</span>
+                    </Link>
+                  ) : (
+                    <span>{item.title}</span>
+                  )}
+                  {item.isActive && (
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  )}
                 </SidebarMenuButton>
               </CollapsibleTrigger>
               <CollapsibleContent>

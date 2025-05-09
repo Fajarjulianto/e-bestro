@@ -259,6 +259,7 @@ function SidebarTrigger({
 }: React.ComponentProps<typeof Button>) {
   const { toggleSidebar } = useSidebar();
 
+  const [arrowDirection, setArrowDirection] = React.useState(true);
   return (
     <Button
       data-sidebar="trigger"
@@ -269,11 +270,12 @@ function SidebarTrigger({
       onClick={(event) => {
         onClick?.(event);
         toggleSidebar();
+        setArrowDirection((prev) => !prev);
       }}
       {...props}
     >
       <Image
-        src={"/arrowButtonLeft.png"}
+        src={arrowDirection ? "/arrowButtonLeft.png" : "/arrowButtonRight.png"}
         height={7}
         width={7}
         alt="arrow left icon"

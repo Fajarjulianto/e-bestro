@@ -1,16 +1,15 @@
 import * as React from "react";
-import {
-  // AudioWaveform,
-  // BookOpen,
-  // Bot,
-  // Command,
-  Frame,
-  // GalleryVerticalEnd,
-  Map,
-  PieChart,
-  // Settings2,
-  // SquareTerminal,
-} from "lucide-react";
+import // AudioWaveform,
+// BookOpen,
+// Bot,
+// Command,
+// Frame,
+// GalleryVerticalEnd,
+// Map,
+// PieChart,
+// Settings2,
+// SquareTerminal,
+"lucide-react";
 
 import { NavMain } from "@/components/utils/nav-main";
 import { NavUser } from "@/components/utils/nav-user";
@@ -45,7 +44,7 @@ type LabelData = {
 const labelData: LabelData = [
   {
     title: "Dashboard",
-    url: "/dashboard",
+    url: "/",
     icon: "/Home.png",
     isActive: false,
   },
@@ -185,23 +184,23 @@ const data = {
   //     ],
   //   },
   // ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+  // projects: [
+  //   {
+  //     name: "Design Engineering",
+  //     url: "#",
+  //     icon: Frame,
+  //   },
+  //   {
+  //     name: "Sales & Marketing",
+  //     url: "#",
+  //     icon: PieChart,
+  //   },
+  //   {
+  //     name: "Travel",
+  //     url: "#",
+  //     icon: Map,
+  //   },
+  // ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -209,7 +208,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar
       collapsible="icon"
       {...props}
-      className="font-poppins border-none bg-white"
+      className="font-poppins border-none bg-primary"
     >
       <SidebarHeader>
         <TeamSwitcher teams={profile} />
