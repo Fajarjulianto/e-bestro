@@ -1,9 +1,11 @@
 import React, { JSX } from "react";
 import Image from "next/image";
-import { useState } from "react";
 
 function Banner(): JSX.Element {
-  const [name, setName] = useState("Belva Chelsea Anggara Hartantyo");
+  const [name, setName] = React.useState<string>(
+    "Belva Chelsea Anggara Hartantyo"
+  );
+
   return (
     <div className="bg-primary md:pl-8 lg:pl-50 w-full h-content md:h-56 flex flex-col md:flex-row md:justify-between items-center px-6 pt-6">
       <div>
