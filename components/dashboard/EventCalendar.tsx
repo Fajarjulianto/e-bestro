@@ -110,7 +110,7 @@ function EventCalendar(): JSX.Element {
             {dataCarousel.map((data, index) => (
               <CarouselItem
                 key={index}
-                className="md:basis-1/2 xl:basis-1/3 h-full w-2 flex justify-center"
+                className="md:basis-1/2 xxl:basis-1/3 h-full w-2 flex justify-center"
               >
                 <EventCard
                   title={data.title}
