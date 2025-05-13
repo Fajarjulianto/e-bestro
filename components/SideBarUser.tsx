@@ -68,10 +68,10 @@ export default function SidebarUser(): JSX.Element {
               <li key={item.label}>
                 <Link
                   href={item.href}
-                  className="flex items-center gap-3 px-3 py-2 rounded hover:bg-green-600 transition"
+                  className="flex items-center gap-3 px-3 py-2 rounded hover:bg-green-600 transition min-w-0"
                 >
                   {item.icon}
-                  {item.label}
+                  <span className="whitespace-normal break-words">{item.label}</span>
                 </Link>
               </li>
             ))}
