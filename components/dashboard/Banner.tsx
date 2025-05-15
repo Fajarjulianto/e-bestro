@@ -1,11 +1,9 @@
 import React, { JSX } from "react";
 import Image from "next/image";
 
+// components
+import BannerStudentName from "./BannerStudentName";
 function Banner(): JSX.Element {
-  const [name, setName] = React.useState<string>(
-    "Belva Chelsea Anggara Hartantyo"
-  );
-
   return (
     <div className="bg-primary md:pl-8 lg:pl-50 w-full h-content md:h-56 flex flex-col md:flex-row md:justify-between items-center px-6 pt-6">
       <div>
@@ -14,10 +12,7 @@ function Banner(): JSX.Element {
           <p className="font-bold text-2xl font-poppins">
             &ldquo;You have proven your potential. Now, Go Beyond!&rdquo;
           </p>
-          <p className="font-poppins font-bold">
-            <span className="text-md font-light">Selamat Bergabung, </span>
-            {name}! BESTRO siap menemani perjalanan suksesmu!
-          </p>
+          <BannerStudentName />
         </div>
       </div>
 

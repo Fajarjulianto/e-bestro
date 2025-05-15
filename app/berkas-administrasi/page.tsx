@@ -12,7 +12,6 @@ function BerkasAdministrasi() {
       <main className="bg-mainBG w-full h-screen relative">
         <SidebarTrigger className="absolute top-9 bg-white md:-left-4 z-30 border-2 border-mainBG" />
         <Banner />
-
         <div className="grid lg:grid-cols-3 grid-cols-1 py-4">
           <DocumentMenu />
           <div className="lg:col-span-2 col-span-1">
