@@ -4,12 +4,18 @@ export default function RightPanel() {
   return (
     <div className="relative hidden lg:flex w-1/2 items-center justify-center overflow-hidden bg-secondary">
       {/* Decorative Shapes */}
-      <div className="absolute w-[300px] h-[309px] bg-primary rounded-full top-[100px] left-[-170px] opacity-90 z-0"></div>
+      {/* <div className="absolute w-[300px] h-[309px] bg-primary rounded-full top-[100px] left-[-170px] opacity-90 z-0"></div>
       <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[1%] left-[80%] opacity-80 z-0"></div>
       <div className="absolute w-[700px] h-[700px] bg-primary rounded-full top-[60%] left-[60%] opacity-80 z-0"></div>
       <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[120%] left-[30%] opacity-80 z-0"></div>
-      <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[98%] left-[10%] opacity-80 z-0"></div>
-
+      <div className="absolute w-[180px] h-[180px] bg-primary rounded-full top-[98%] left-[10%] opacity-80 z-0"></div> */}
+        <Image
+        src="/blob-big.png"
+        alt="Blob"
+        width={500}
+        height={500}
+        className="absolute right-0 -bottom-20 w-[600px] h-[500px] z-0"
+        />
       <div className="z-10 text-center text-white px-10">
         <div className="absolute top-[100px] left-[200px]">
           <h1 className="text-3xl lg:text-4xl font-semibold mb-2 leading-tight">
@@ -23,7 +29,7 @@ export default function RightPanel() {
           alt="Ilustrasi"
           width={700}
           height={700}
-          className="mt-8 mx-auto bottom-10"
+          className="absolute mt-8 mx-auto  right-0 bottom-0"
         />
       </div>
     </div>

@@ -71,6 +71,29 @@ const labelData: LabelData = [
     icon: "/calendar-icon.png",
     isActive: false,
   },
+  {
+    title: "Laporan Hasil Belajar",
+    icon: "/student-icon.png",
+    isActive: true,
+    items: [
+      {
+        title: "Lapor KHS/Transkrip",
+        url: "/transkrip",
+      },
+      {
+        title: "Laporan Pembayaran UKT",
+        url: "/laporan-pembayaran",
+      },
+      {
+        title: "Laporan Prestasi",
+        url: "/laporan-prestasi",
+      },
+      {
+        title: "Laporan Pengembangan Diri",
+        url: "/laporan-pengembangan-diri",
+      },
+    ],
+  },
 ];
 
 // This is sample data.

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { JSX,useState } from 'react';
 import Head from 'next/head';
 import InputField from '@/components/InputFields';
 import Button from '@/components/Button';
