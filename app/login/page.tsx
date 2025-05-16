@@ -8,26 +8,9 @@ import LogoGroup from "@/components/LogoGroup";
 import RightPanel from "@/components/RightPanel";
 
 //supabase
-// import { login } from "@/lib/users";
+import { login } from "./action";
 
-export default function Main(): JSX.Element {
-  // const [username, setUsername] = React.useState<string>("");
-  // const [password, setPassword] = React.useState<string>("");
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    // const { data, error } = await supabaseAuth.auth.signInWithPassword({
-    //   email: "rullyfadheli@email.com",
-    //   password: "bananalezat123",
-    // });
-
-    // if (error) {
-    //   console.log(error);
-    // }
-    // console.log(data);
-    // return data;
-  }
-
+export default function Page(): JSX.Element {
   return (
     <>
       <Head>
@@ -40,7 +23,7 @@ export default function Main(): JSX.Element {
           <h1 className="text-3xl font-bold text-[#3A3A3A]">Login</h1>
           <p className="text-gray-500 mb-8">Enter your account details</p>
 
-          <form className="space-y-5" onSubmit={handleSubmit}>
+          <form className="space-y-5">
             <div>
               <input
                 type="text"
@@ -63,8 +46,8 @@ export default function Main(): JSX.Element {
               Forgot Password?
             </div>
             <button
-              // formAction={login}
-              className="bg-secondary hover:bg-green-800"
+              formAction={login}
+              className="bg-secondary hover:bg-green-800 w-full p-4 rounded-2xl"
             >
               Login
             </button>

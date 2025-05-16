@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { JSX } from "react";
 
 interface InputFieldProps {
   label: string;
   id: string;
   type?: string;
-  value: string;
+  value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   required?: boolean;
@@ -13,9 +13,9 @@ interface InputFieldProps {
 export default function InputField({
   label,
   id,
-  type = 'text',
-  value,
-  onChange,
+  type = "text",
+  // value,
+  // onChange,
   placeholder,
   required = false,
 }: InputFieldProps): JSX.Element {
@@ -27,8 +27,8 @@ export default function InputField({
       <input
         id={id}
         type={type}
-        value={value}
-        onChange={onChange}
+        // value={value}
+        // onChange={onChange}
         placeholder={placeholder}
         required={required}
         className="rounded-md border border-gray-300 p-2 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
