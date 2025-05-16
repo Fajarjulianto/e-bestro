@@ -4,8 +4,11 @@ import "@/styles/globals.css";
 
 import React, { JSX } from "react";
 import Head from "next/head";
+
+//conmponents
 import LogoGroup from "@/components/LogoGroup";
 import RightPanel from "@/components/RightPanel";
+import InputField from "@/components/login/inputField";
 
 //supabase
 import { login } from "./action";
@@ -24,24 +27,20 @@ export default function Page(): JSX.Element {
           <p className="text-gray-500 mb-8">Enter your account details</p>
 
           <form className="space-y-5">
-            <div>
-              <input
-                type="text"
-                name="email"
-                placeholder="Email"
-                required={true}
-                className="border w-full border-b-gray-300 border-x-0 border-t-0 p-2 focus:outline-none focus:ring-0"
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                name="password"
-                placeholder="Password"
-                required={true}
-                className="border w-full border-gray-300 border-x-0 border-t-0 p-2 focus:outline-none focus:ring-0"
-              />
-            </div>
+            <InputField
+              name="email"
+              placeholder="Email"
+              type="text"
+              required={true}
+            />
+
+            <InputField
+              name="password"
+              placeholder="Password"
+              type="password"
+              required={true}
+            />
+
             <div className="text-sm text-gray-500 cursor-pointer hover:underline text-right">
               Forgot Password?
             </div>
