@@ -5,15 +5,22 @@ import Card from "@/components/dashboard/Card";
 import Semester from "@/components/dashboard/Semester";
 import EventCalendar from "@/components/dashboard/EventCalendar";
 
+// API
+// import { getUserData } from "@/lib/users";
+
 //sidebar
 
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 import { AppSidebar } from "@/components/utils/app-sidebar";
 
-// import AppSideBar from "@/components/utils/SideBar";
-
 function Dashboard(): JSX.Element {
+  // async function userData() {
+  //   const data = await getUserData();
+  //   console.log(data);
+  // }
+
+  // userData();
   return (
     <SidebarProvider>
       <AppSidebar />

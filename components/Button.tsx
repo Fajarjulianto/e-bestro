@@ -2,22 +2,22 @@ import React from 'react';
 
 interface ButtonProps {
   children: React.ReactNode;
-  type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
   className?: string;
 }
 
 export default function Button({
   children,
-  type = 'button',
   onClick,
+  type = 'button',
   className = '',
 }: ButtonProps): JSX.Element {
   return (
     <button
       type={type}
       onClick={onClick}
-      className={`w-full rounded-md bg-blue-600 p-2 text-white hover:bg-blue-700 transition ${className}`}
+      className={`rounded bg-green-600 text-white px-4 py-2 hover:bg-green-700 transition ${className}`}
     >
       {children}
     </button>

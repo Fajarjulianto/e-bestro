@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function RightPanel() {
   return (
@@ -19,10 +19,15 @@ export default function RightPanel() {
       <div className="z-10 text-center text-white px-10">
         <div className="absolute top-[100px] left-[200px]">
           <h1 className="text-3xl lg:text-4xl font-semibold mb-2 leading-tight">
-            Welcome to<br />
-            <span className="font-bold text-white text-4xl lg:text-5xl">e-BESTRO</span>
+            Welcome to
+            <br />
+            <span className="font-bold text-white text-4xl lg:text-5xl">
+              e-BESTRO
+            </span>
           </h1>
-          <p className="text-sm text-gray-100 mt-1">Login to access your account</p>
+          <p className="text-sm text-gray-100 mt-1">
+            Login to access your account
+          </p>
         </div>
         <Image
           src="/welcome-illustration.png"
