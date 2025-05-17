@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { signOut } from "@/lib/users";
 
 import // BadgeCheck,
 // Bell,
@@ -57,8 +58,13 @@ export function NavUser({
                 />
                 {/* <AvatarFallback className="rounded-lg">CN</AvatarFallback> */}
               </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium text-red-600 font-ubuntu">
+              <div className="flex text-left text-sm leading-tight">
+                <span
+                  onClick={async () => {
+                    await signOut();
+                  }}
+                  className="truncate font-medium text-red-600 font-ubuntu"
+                >
                   {user.name}
                 </span>
                 {/* <span className="truncate text-xs">{user.email}</span> */}
