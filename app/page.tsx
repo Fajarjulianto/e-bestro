@@ -1,86 +1,24 @@
 "use client";
 
+import React, { JSX } from "react";
+
 import "@/styles/globals.css";
 
-import React, { JSX } from "react";
-import Head from "next/head";
-import LogoGroup from "@/components/LogoGroup";
-import RightPanel from "@/components/RightPanel";
-
-//supabase
-// import { login } from "@/lib/users";
-
-export default function Main(): JSX.Element {
-  // const [username, setUsername] = React.useState<string>("");
-  // const [password, setPassword] = React.useState<string>("");
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    // const { data, error } = await supabaseAuth.auth.signInWithPassword({
-    //   email: "rullyfadheli@email.com",
-    //   password: "bananalezat123",
-    // });
-
-    // if (error) {
-    //   console.log(error);
-    // }
-    // console.log(data);
-    // return data;
-  }
-
+export default function Home(): JSX.Element {
   return (
-    <>
-      <Head>
-        <title>Login | e-BESTRO</title>
-      </Head>
-
-      <div className="flex min-h-screen">
-        <div className="w-full lg:w-1/2 flex flex-col justify-center px-10 md:px-20 bg-[#F8F8F8]">
-          <LogoGroup />
-          <h1 className="text-3xl font-bold text-[#3A3A3A]">Login</h1>
-          <p className="text-gray-500 mb-8">Enter your account details</p>
-
-          <form className="space-y-5" onSubmit={handleSubmit}>
-            <div>
-              <input
-                type="text"
-                name="email"
-                placeholder="Email"
-                required={true}
-                className="border w-full border-b-gray-300 border-x-0 border-t-0 p-2 focus:outline-none focus:ring-0"
-              />
-            </div>
-            <div>
-              <input
-                type="text"
-                name="password"
-                placeholder="Password"
-                required={true}
-                className="border w-full border-gray-300 border-x-0 border-t-0 p-2 focus:outline-none focus:ring-0"
-              />
-            </div>
-            <div className="text-sm text-gray-500 cursor-pointer hover:underline text-right">
-              Forgot Password?
-            </div>
-            <button
-              // formAction={login}
-              className="bg-secondary hover:bg-green-800"
-            >
-              Login
-            </button>
-          </form>
-
-          <p className="mt-8 text-xs text-gray-500 text-center">
-            Dengan menggunakan aplikasi ini, Anda telah membaca dan menyetujui{" "}
-            <span className="font-semibold">
-              Kebijakan Penanganan Data dan Privasi
-            </span>
-            kami.
-          </p>
-        </div>
-
-        <RightPanel />
+    <main className="min-h-screen bg-white flex flex-col items-center justify-center px-6 py-12">
+      <div className="max-w-xl text-center">
+        <h1 className="text-4xl font-bold text-gray-800 mb-4">Selamat Datang di <span className="text-secondary">e-BESTRO</span></h1>
+        <p className="text-gray-600 mb-6">
+          Sistem Manajemen Pelaporan Beasiswa BESTRO. Silakan login untuk mulai mengelola laporan Anda.
+        </p>
+        <a
+          href="/login"
+          className="inline-block bg-secondary text-white px-6 py-3 rounded-lg font-medium hover:bg-green-700 transition"
+        >
+          Masuk ke Aplikasi
+        </a>
       </div>
-    </>
+    </main>
   );
 }
