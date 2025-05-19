@@ -1,13 +1,12 @@
 import { type NextRequest } from "next/server";
 import { updateSession } from "@/utils/supabase/middleware";
+// import { createClient } from "./utils/supabase/server";
 
 export async function middleware(request: NextRequest) {
   // const supabase = await createClient();
   // const { data } = await supabase.auth.getUser();
-  // const userID = data.user?.id as string;
+  // console.log(data);
 
-  // const grade = await getGradeTarget(userID);
-  // console.log(grade);
   return await updateSession(request);
 }
 
