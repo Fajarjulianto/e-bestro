@@ -31,7 +31,7 @@ function Card(): JSX.Element {
     },
   ];
 
-  console.log(cardData);
+  // console.log(cardData);
 
   return (
     <div className="container mx-auto ">

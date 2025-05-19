@@ -15,6 +15,10 @@ export async function login(formData: FormData) {
     password: formData.get("password") as string,
   };
 
+  if (!userData.email && !userData.password) {
+    return "Please input requiered fields";
+  }
+
   const { error } = await supabase.auth.signInWithPassword(userData);
 
   if (error) {
@@ -34,6 +38,10 @@ export async function signup(formData: FormData) {
     email: formData.get("email") as string,
     password: formData.get("password") as string,
   };
+
+  if (!data.email && !data.password) {
+    return "Please input requiered fields";
+  }
 
   const { error } = await supabase.auth.signUp(data);
 
