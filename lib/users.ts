@@ -31,6 +31,7 @@ async function getGradeTarget(user_id: string) {
 
 async function getStudentNameById(user_id: string) {
   const supabase = await createClient();
+  console.log(user_id);
   const { data, error } = await supabase
     .from("student")
     .select("name")
@@ -39,6 +40,8 @@ async function getStudentNameById(user_id: string) {
   if (error) {
     console.log(error);
   }
+
+  console.log(data);
 
   return data;
 }
