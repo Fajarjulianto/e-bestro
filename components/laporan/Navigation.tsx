@@ -15,29 +15,24 @@ function Navigation(): JSX.Element {
   const data: Data = [
     {
       number: 1,
-      title: "Lapor KHS/Transkrip Nilai",
+      title: "Lapor KHS/Transkrip Nilai & Lapor Pembayaran UKT",
       imgUrl: "/1st.png",
     },
     {
       number: 2,
-      title: "Lapor Pembayaran UKT",
+      title: "Lapor Prestasi",
       imgUrl: "/2nd.png",
     },
     {
       number: 3,
-      title: "Lapor Prestasi",
-      imgUrl: "/3rd.png",
-    },
-    {
-      number: 4,
       title: "Lapor Perkembangan Diri",
-      imgUrl: "/4th.png",
+      imgUrl: "/3rd.png",
     },
   ];
 
   return (
-    <div className="pt-4 pb-2 w-full overflow-x-auto">
-      <div className="flex w-[1050px] xl:w-full gap-4 whitespace-nowrap">
+    <div className="pt-4 w-full pb-2 xl:w-full overflow-x-auto">
+      <div className="flex w-[000px] xl:w-full gap-4 whitespace-nowrap">
         {data.map((items) => (
           <NavigationElement
             key={items.number}

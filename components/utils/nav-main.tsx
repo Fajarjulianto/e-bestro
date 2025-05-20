@@ -55,6 +55,7 @@ export function NavMain({
                       width={20}
                       height={20}
                       alt="sidebar icon"
+                      className="w-4 h-4"
                     />
                   )}
                   {item.url ? (

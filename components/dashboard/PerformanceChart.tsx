@@ -119,16 +119,6 @@ export default function PerformanceChart() {
               <Line
                 dataKey="Target"
                 type="natural"
-                fill="#E1057C"
-                fillOpacity={0.4}
-                stroke="#E1057C"
-                strokeWidth={5}
-                strokeLinecap="round"
-                dot={false}
-              />
-              <Line
-                dataKey="IPK"
-                type="natural"
                 fill="#0089ED"
                 fillOpacity={0.4}
                 stroke="#0089ED"
@@ -136,7 +126,18 @@ export default function PerformanceChart() {
                 strokeLinecap="round"
                 dot={false}
               />
+              <Line
+                dataKey="IPK"
+                type="natural"
+                fill="#E1057C"
+                fillOpacity={0.4}
+                stroke="#E1057C"
+                strokeWidth={5}
+                strokeLinecap="round"
+                dot={false}
+              />
             </LineChart>
+            {/* #0089ED */}
           </ChartContainer>
         </CardContent>
         <CardFooter>

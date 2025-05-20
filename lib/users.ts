@@ -29,4 +29,31 @@ async function getGradeTarget(user_id: string) {
   return data;
 }
 
-export { signOut, getGradeTarget };
+async function getStudentNameById(user_id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("student")
+    .select("name")
+    .eq("user_id", user_id);
+
+  if (error) {
+    console.log(error);
+  }
+
+  return data;
+}
+
+async function getScholarshipApproval(user_id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("scholarshipApproval")
+    .select("*")
+    .eq("user_id", user_id);
+  if (error) {
+    console.log(error);
+  }
+
+  return data;
+}
+
+export { signOut, getGradeTarget, getStudentNameById, getScholarshipApproval };

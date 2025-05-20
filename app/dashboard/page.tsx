@@ -9,18 +9,11 @@ import EventCalendar from "@/components/dashboard/EventCalendar";
 // import { getUserData } from "@/lib/users";
 
 //sidebar
-
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 import { AppSidebar } from "@/components/utils/app-sidebar";
 
 function Dashboard(): JSX.Element {
-  // async function userData() {
-  //   const data = await getUserData();
-  //   console.log(data);
-  // }
-
-  // userData();
   return (
     <SidebarProvider>
       <AppSidebar />

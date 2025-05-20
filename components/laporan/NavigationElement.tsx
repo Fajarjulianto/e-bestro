@@ -11,7 +11,7 @@ function NavigationElement({
   imgUrl: string;
 }): JSX.Element {
   return (
-    <div className="bg-primary w-56 xl:w-60 py-1 pl-1 pr-4 md:pr-2 flex gap-2 relative rounded-xl">
+    <div className="bg-primary xl:w-60 py-1 pl-1 pr-4 md:pr-2 flex gap-2 relative rounded-xl">
       <div className="bg-white p-[calc(var(--spacing) * 0.1)] rounded-full">
         <Image
           src={imgUrl}
@@ -29,7 +29,7 @@ function NavigationElement({
         width={60}
         height={60}
         className={`w-9 h-9 absolute top-0 -right-6 z-10 ${
-          number === 4 && "hidden"
+          number === 3 && "hidden"
         }`}
         alt="next page icon"
       />

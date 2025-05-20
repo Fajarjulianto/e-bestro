@@ -1,22 +1,18 @@
 "use client";
 
-import React, { JSX, useState } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import React, { JSX } from "react";
 
 import Image from "next/image";
+
+// DB
+import { createClient } from "@/utils/supabase/client";
+import { getScholarshipApproval } from "@/lib/users";
 function Semester(): JSX.Element {
   type SemesterData = {
-    semester: number;
-    task: string;
-    status: number;
-    date: string;
+    semester?: number;
+    check_requirement?: number;
+    status?: number;
+    date?: string;
   }[];
 
   // 1 = verified
@@ -24,139 +20,28 @@ function Semester(): JSX.Element {
   // 3 = draft
   // 4 = decline
 
-  const semesterData: SemesterData = [
-    {
-      semester: 1,
-      task: "Check Requirements",
-      status: 4,
-      date: "2025-01-10",
-    },
-    {
-      semester: 1,
-      task: "Completed Report",
-      status: 1,
-      date: "2025-01-15",
-    },
+  const [semesterData, setSemesterData] = React.useState<SemesterData>([]);
 
-    {
-      semester: 2,
-      task: "Proceed with Submission",
-      status: 3,
-      date: "2025-05-10",
-    },
-    {
-      semester: 2,
-      task: "Verification Process",
-      status: 2,
-      date: "2025-05-20",
-    },
+  React.useEffect(() => {
+    async function getScholarshipRequirement() {
+      const supabase = createClient();
+      const { data } = await supabase.auth.getUser();
 
-    {
-      semester: 3,
-      task: "Check Requirements",
-      status: 4,
-      date: "2025-09-08",
-    },
-    {
-      semester: 3,
-      task: "Completed Report",
-      status: 1,
-      date: "2025-09-15",
-    },
+      const user_id = data.user?.id as string;
 
-    {
-      semester: 4,
-      task: "Proceed with Submission",
-      status: 4,
-      date: "2026-01-12",
-    },
-    {
-      semester: 4,
-      task: "Verification Process",
-      status: 2,
-      date: "2026-01-22",
-    },
+      const scholarshipData = await getScholarshipApproval(user_id);
 
-    {
-      semester: 5,
-      task: "Check Requirements",
-      status: 3,
-      date: "2026-05-09",
-    },
-    {
-      semester: 5,
-      task: "Completed Report",
-      status: 3,
-      date: "2026-05-19",
-    },
+      if (!scholarshipData) {
+        console.log("Error Fetching data from DB");
+        return;
+      }
 
-    {
-      semester: 6,
-      task: "Proceed with Submission",
-      status: 1,
-      date: "2026-09-10",
-    },
-    {
-      semester: 6,
-      task: "Verification Process",
-      status: 2,
-      date: "2026-09-20",
-    },
+      console.log(scholarshipData);
+      setSemesterData(scholarshipData as SemesterData);
+    }
 
-    // {
-    //   semester: 7,
-    //   task: "Check Requirements",
-    //   status: 4,
-    //   date: "2027-01-11",
-    // },
-    // {
-    //   semester: 7,
-    //   task: "Completed Report",
-    //   status: 2,
-    //   date: "2027-01-21",
-    // },
-
-    // {
-    //   semester: 8,
-    //   task: "Proceed with Submission",
-    //   status: 1,
-    //   date: "2027-05-12",
-    // },
-    // {
-    //   semester: 8,
-    //   task: "Verification Process",
-    //   status: 2,
-    //   date: "2027-05-22",
-    // },
-  ];
-
-  const [filteredData, setFilteredData] = useState([
-    {
-      semester: 1,
-      task: "Check Requirements",
-      status: 4,
-      date: "2025-01-10",
-    },
-    {
-      semester: 1,
-      task: "Completed Report",
-      status: 1,
-      date: "2025-01-15",
-    },
-
-    {
-      semester: 2,
-      task: "Proceed with Submission",
-      status: 3,
-      date: "2025-05-10",
-    },
-    {
-      semester: 2,
-      task: "Verification Process",
-      status: 2,
-      date: "2025-05-20",
-    },
-  ]);
+    getScholarshipRequirement();
+  }, []);
 
   function getStatusText(statusCode: number): string {
     switch (statusCode) {
@@ -173,12 +58,19 @@ function Semester(): JSX.Element {
     }
   }
 
-  function filterSemesterData(semesterLow: number, semesterHigh: number) {
-    const filter = semesterData.filter((data) => {
-      return data.semester >= semesterLow && data.semester <= semesterHigh;
-    });
-
-    setFilteredData(filter);
+  function getRequirement(statusCode: number) {
+    switch (statusCode) {
+      case 1:
+        return "Completed Report";
+      case 2:
+        return "Verification Process";
+      case 3:
+        return "Proceed with Submission";
+      case 4:
+        return "Check Requirement";
+      default:
+        return "";
+    }
   }
 
   return (
@@ -187,40 +79,20 @@ function Semester(): JSX.Element {
         <div className="bg-[#F7F9FC] rounded-t-lg text-[#45474B] font-bold">
           <div className="h-7 border-2 rounded-t-lg border-[#6F7175] text-[#C4DEE9]font-bold text-sm flex justify-start">
             <div className="flex w-[10%] justify-center items-center">
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <span className="flex items-center justify-center w-full h-full">
-                    <Image
-                      src={"/tag.png"}
-                      height={10}
-                      width={10}
-                      alt="tag image"
-                    />
-                    <Image
-                      src={"/column-sorting.png"}
-                      height={10}
-                      width={10}
-                      alt="column sorting image"
-                    />
-                  </span>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>Semester</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => filterSemesterData(1, 2)}>
-                    1-2
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => filterSemesterData(3, 4)}>
-                    3-4
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => filterSemesterData(5, 6)}>
-                    5-6
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => filterSemesterData(7, 8)}>
-                    7-8
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <span className="flex items-center justify-center w-full h-full">
+                <Image
+                  src={"/tag.png"}
+                  height={10}
+                  width={10}
+                  alt="tag image"
+                />
+                <Image
+                  src={"/column-sorting.png"}
+                  height={10}
+                  width={10}
+                  alt="column sorting image"
+                />
+              </span>
             </div>
             <div className="text-center w-[20%] opacity-50 border-x-2">
               Semester
@@ -237,7 +109,7 @@ function Semester(): JSX.Element {
           </div>
         </div>
         <div className="w-full overflow-y-auto bg-white h-52 border-x-2 border-b-2 border-[#6F7175] rounded-b-lg">
-          {filteredData.map((data, index) => (
+          {semesterData.map((data, index) => (
             <div
               key={index}
               className="h-14 text-[#45474B] font-bold text-sm flex justify-start"
@@ -249,10 +121,10 @@ function Semester(): JSX.Element {
                 Semester {data.semester}
               </span>
               <span className="flex border-1 border-solid justify-center items-center w-[30%] border-y-1">
-                {data.task}
+                {getRequirement(data?.check_requirement as number)}
               </span>
               <span className="flex border-1 border-solid justify-center items-center w-[20%] border-y-1">
-                {data.date}
+                {data?.date?.split("T")[0]}
               </span>
               <span
                 className={`flex justify-center items-center w-[20%] border-y-1 `}
@@ -266,13 +138,13 @@ function Semester(): JSX.Element {
                   ${data.status === 2 ? "bg-yellowBg" : ""}`}
                 >
                   <span
-                    className={`rounded-full inline-block h-2 w-2 sm:mr-2 mr-1 ${
+                    className={`rounded-full inline-block h-2 w-2 sm:mr-2 mr-1 line-clamp-1 ${
                       data.status === 1 ? "bg-greenDot" : ""
                     } ${data.status === 4 ? "bg-redDot" : ""}
                     ${data.status === 3 ? "bg-purpleDot" : ""}
                     ${data.status === 2 ? "bg-yellowDot" : ""}`}
                   ></span>
-                  {getStatusText(data.status)}
+                  {getStatusText(data?.status as number)}
                 </span>
               </span>
             </div>

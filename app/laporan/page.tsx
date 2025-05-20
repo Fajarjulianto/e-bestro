@@ -25,43 +25,42 @@ function LaporanTranskrip(): JSX.Element {
           />
           <div className="pl-6">
             <Navigation />
-            <FormSectionTitle title="Entry Laporan Hasil Belajar"/>
+            <FormSectionTitle title="Entry Laporan Hasil Belajar" />
             <FormProgressBar progress={0.5} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mr-3">
-            <FormSelect
+              <FormSelect
                 label="Semester"
-                options={['1', '2', '3', '4', '5', '6', '7', '8']}
+                options={["1", "2", "3", "4", "5", "6", "7", "8"]}
                 required
               />
-               <FormInput
+              <FormInput
                 label="Tanggal Bayar UKT"
                 placeholder="Tanggal Bayar UKT"
                 type="date"
                 required
               />
-                <FormInput
+              <FormInput
                 label="Indeks Prestasi Semester"
                 placeholder="Nilai Indeks Prestasi Semester"
                 required
               />
-             
-              
-                <FormInput
+
+              <FormInput
                 label="Indeks Prestasi Kumulatif"
                 placeholder="Nilai Indeks Prestasi Kumulatif"
                 required
               />
-                <UploadBox label="Upload Transkrip Nilai" />
+              <UploadBox label="Upload Transkrip Nilai" />
               <UploadBox label="Upload bukti bayar UKT" />
               <div></div>
-                    <div className="flex gap-4 h-10 -ml-34">
-                      <Button className="bg-white px-10 py-2 !text-secondary border border-secondary">Batal</Button> 
-                      <Button className="bg-secondary py-2">Selanjutnya</Button>
-                    </div>
-                </div>
-      
+              <div className="flex gap-4 h-10 -ml-34">
+                <Button className="bg-white px-10 py-2 !text-secondary border border-secondary">
+                  Batal
+                </Button>
+                <Button className="bg-secondary py-2">Selanjutnya</Button>
+              </div>
+            </div>
           </div>
-            
         </div>
       </main>
     </SidebarProvider>

@@ -32,7 +32,7 @@ export function TeamSwitcher({
 }) {
   // const { isMobile } = useSidebar();
   const [activeTeam] = React.useState(teams[0]);
-  console.log("activeTeam", activeTeam);
+  // console.log("activeTeam", activeTeam);
 
   if (!activeTeam) {
     return null;

@@ -80,19 +80,19 @@ const labelData: LabelData = [
     items: [
       {
         title: "Lapor KHS/Transkrip",
-        url: "/transkrip",
+        url: "/laporan?data=transkrip",
       },
       {
         title: "Laporan Pembayaran UKT",
-        url: "/laporan-pembayaran",
+        url: "/laporan?data=pembayaran",
       },
       {
         title: "Laporan Prestasi",
-        url: "/laporan-prestasi",
+        url: "/laporan?data=prestasi",
       },
       {
         title: "Laporan Pengembangan Diri",
-        url: "/laporan-pengembangan-diri",
+        url: "/laporan?data=pengembangan-diri",
       },
     ],
   },
