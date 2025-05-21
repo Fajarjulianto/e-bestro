@@ -1,7 +1,12 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
 import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts";
+
+//supabase
+import { getGradeTarget } from "@/lib/users";
+import { createClient } from "@/utils/supabase/client";
 
 import {
   Card,
@@ -18,24 +23,33 @@ import {
 } from "@/components/ui/chart";
 
 type ChartData = {
-  smt: number;
-  Average: number;
+  semester: number;
+  IPK: number;
   Target: number;
 }[];
-const chartData: ChartData = [
-  { smt: 1, Average: 2.24, Target: 3.5 },
-  { smt: 2, Average: 2.88, Target: 4.0 },
-  { smt: 3, Average: 3.44, Target: 3.5 },
-  { smt: 4, Average: 2.55, Target: 3.0 },
-  { smt: 5, Average: 3.67, Target: 4.0 },
-  { smt: 6, Average: 2.78, Target: 3.0 },
-  { smt: 7, Average: 3.89, Target: 4.0 },
-  { smt: 8, Average: 4.0, Target: 4.0 },
-];
 
 const chartConfig = {} satisfies ChartConfig;
 
 export default function PerformanceChart() {
+  const [chartData, setChartData] = React.useState<ChartData>([]);
+
+  React.useEffect(() => {
+    async function getChartData() {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+      if (error) {
+        console.error("Error fetching user:", error);
+        return;
+      }
+
+      const user_id = data.user.id;
+      const grade = await getGradeTarget(user_id);
+      setChartData(grade as ChartData);
+    }
+
+    getChartData();
+  }, []);
+
   return (
     <div className="w-full mt-2 rounded-2xl bg-white">
       <Card>
@@ -79,7 +93,7 @@ export default function PerformanceChart() {
                 domain={[0, 5]}
               />
               <XAxis
-                dataKey="smt"
+                dataKey="semester"
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
@@ -105,16 +119,6 @@ export default function PerformanceChart() {
               <Line
                 dataKey="Target"
                 type="natural"
-                fill="#E1057C"
-                fillOpacity={0.4}
-                stroke="#E1057C"
-                strokeWidth={5}
-                strokeLinecap="round"
-                dot={false}
-              />
-              <Line
-                dataKey="Average"
-                type="natural"
                 fill="#0089ED"
                 fillOpacity={0.4}
                 stroke="#0089ED"
@@ -122,7 +126,18 @@ export default function PerformanceChart() {
                 strokeLinecap="round"
                 dot={false}
               />
+              <Line
+                dataKey="IPK"
+                type="natural"
+                fill="#E1057C"
+                fillOpacity={0.4}
+                stroke="#E1057C"
+                strokeWidth={5}
+                strokeLinecap="round"
+                dot={false}
+              />
             </LineChart>
+            {/* #0089ED */}
           </ChartContainer>
         </CardContent>
         <CardFooter>

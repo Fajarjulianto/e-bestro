@@ -1,264 +1,156 @@
 "use client";
 
-import React, { JSX, useState } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import React, { JSX } from "react";
 
 import Image from "next/image";
+
+// DB
+import { createClient } from "@/utils/supabase/client";
+import { getScholarshipApproval } from "@/lib/users";
 function Semester(): JSX.Element {
   type SemesterData = {
-    semester: number;
-    task: string;
-    status: string;
-    date: string;
+    semester?: number;
+    check_requirement?: number;
+    status?: number;
+    date?: string;
   }[];
 
-  const semesterData: SemesterData = [
-    {
-      semester: 1,
-      task: "Check Requirements",
-      status: "Decline",
-      date: "2025-01-10",
-    },
-    {
-      semester: 1,
-      task: "Completed Report",
-      status: "Verified",
-      date: "2025-01-15",
-    },
+  // 1 = verified
+  // 2 = waiting approval
+  // 3 = draft
+  // 4 = decline
 
-    {
-      semester: 2,
-      task: "Proceed with Submission",
-      status: "Draft",
-      date: "2025-05-10",
-    },
-    {
-      semester: 2,
-      task: "Verification Process",
-      status: "Waiting Approval",
-      date: "2025-05-20",
-    },
+  const [semesterData, setSemesterData] = React.useState<SemesterData>([]);
 
-    {
-      semester: 3,
-      task: "Check Requirements",
-      status: "Decline",
-      date: "2025-09-08",
-    },
-    {
-      semester: 3,
-      task: "Completed Report",
-      status: "Verified",
-      date: "2025-09-15",
-    },
+  React.useEffect(() => {
+    async function getScholarshipRequirement() {
+      const supabase = createClient();
+      const { data } = await supabase.auth.getUser();
 
-    {
-      semester: 4,
-      task: "Proceed with Submission",
-      status: "Draft",
-      date: "2026-01-12",
-    },
-    {
-      semester: 4,
-      task: "Verification Process",
-      status: "Waiting Approval",
-      date: "2026-01-22",
-    },
+      const user_id = data.user?.id as string;
 
-    {
-      semester: 5,
-      task: "Check Requirements",
-      status: "Decline",
-      date: "2026-05-09",
-    },
-    {
-      semester: 5,
-      task: "Completed Report",
-      status: "Verified",
-      date: "2026-05-19",
-    },
+      const scholarshipData = await getScholarshipApproval(user_id);
 
-    {
-      semester: 6,
-      task: "Proceed with Submission",
-      status: "Draft",
-      date: "2026-09-10",
-    },
-    {
-      semester: 6,
-      task: "Verification Process",
-      status: "Waiting Approval",
-      date: "2026-09-20",
-    },
+      if (!scholarshipData) {
+        console.log("Error Fetching data from DB");
+        return;
+      }
 
-    {
-      semester: 7,
-      task: "Check Requirements",
-      status: "Decline",
-      date: "2027-01-11",
-    },
-    {
-      semester: 7,
-      task: "Completed Report",
-      status: "Verified",
-      date: "2027-01-21",
-    },
+      console.log(scholarshipData);
+      setSemesterData(scholarshipData as SemesterData);
+    }
 
-    {
-      semester: 8,
-      task: "Proceed with Submission",
-      status: "Draft",
-      date: "2027-05-12",
-    },
-    {
-      semester: 8,
-      task: "Verification Process",
-      status: "Waiting Approval",
-      date: "2027-05-22",
-    },
-  ];
+    getScholarshipRequirement();
+  }, []);
 
-  const [filteredData, setFilteredData] = useState([
-    {
-      semester: 1,
-      task: "Check Requirements",
-      status: "Decline",
-      date: "2025-01-10",
-    },
-    {
-      semester: 1,
-      task: "Completed Report",
-      status: "Verified",
-      date: "2025-01-15",
-    },
+  function getStatusText(statusCode: number): string {
+    switch (statusCode) {
+      case 1:
+        return "Verified";
+      case 2:
+        return "Waiting Approval";
+      case 3:
+        return "Draft";
+      case 4:
+        return "Decline";
+      default:
+        return "";
+    }
+  }
 
-    {
-      semester: 2,
-      task: "Proceed with Submission",
-      status: "Draft",
-      date: "2025-05-10",
-    },
-    {
-      semester: 2,
-      task: "Verification Process",
-      status: "Waiting Approval",
-      date: "2025-05-20",
-    },
-  ]);
-
-  function filterSemesterData(semesterLow: number, semesterHigh: number) {
-    const filter = semesterData.filter((data) => {
-      return data.semester >= semesterLow && data.semester <= semesterHigh;
-    });
-
-    setFilteredData(filter);
+  function getRequirement(statusCode: number) {
+    switch (statusCode) {
+      case 1:
+        return "Completed Report";
+      case 2:
+        return "Verification Process";
+      case 3:
+        return "Proceed with Submission";
+      case 4:
+        return "Check Requirement";
+      default:
+        return "";
+    }
   }
 
   return (
     <div className="bg-primary w-full h-72 rounded-2xl mt-2 flex items-center">
-      <table className="h-44 w-full bg-white rounded-lg font-ubuntu">
-        <thead className="bg-[#F7F9FC] rounded-t-lg text-[#45474B] font-bold">
-          <tr className="h-7 border-2 rounded-t-lg border-[#6F7175] text-[#C4DEE9]font-bold text-sm flex justify-start">
-            <td className="flex w-[10%] justify-center items-center">
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <span className="flex items-center justify-center w-full h-full">
-                    <Image
-                      src={"/tag.png"}
-                      height={10}
-                      width={10}
-                      alt="tag image"
-                    />
-                    <Image
-                      src={"/column-sorting.png"}
-                      height={10}
-                      width={10}
-                      alt="column sorting image"
-                    />
-                  </span>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>Semester</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => filterSemesterData(1, 2)}>
-                    1-2
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => filterSemesterData(3, 4)}>
-                    3-4
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => filterSemesterData(5, 6)}>
-                    5-6
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => filterSemesterData(7, 8)}>
-                    7-8
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </td>
-            <td className="text-center w-[20%] opacity-50 border-x-2">
+      <div className="h-54 w-full  bg-white rounded-lg font-ubuntu">
+        <div className="bg-[#F7F9FC] rounded-t-lg text-[#45474B] font-bold">
+          <div className="h-7 border-2 rounded-t-lg border-[#6F7175] text-[#C4DEE9]font-bold text-sm flex justify-start">
+            <div className="flex w-[10%] justify-center items-center">
+              <span className="flex items-center justify-center w-full h-full">
+                <Image
+                  src={"/tag.png"}
+                  height={10}
+                  width={10}
+                  alt="tag image"
+                />
+                <Image
+                  src={"/column-sorting.png"}
+                  height={10}
+                  width={10}
+                  alt="column sorting image"
+                />
+              </span>
+            </div>
+            <div className="text-center w-[20%] opacity-50 border-x-2">
               Semester
-            </td>
-            <td className="text-center w-[30%] opacity-50 border-x-2">
+            </div>
+            <div className="text-center w-[30%] opacity-50 border-r-2">
               Requirement
-            </td>
-            <td className="text-center w-[20%] opacity-50 border-x-2">Date</td>
-            <td className="text-center w-[20%] opacity-50 border-x-2">
+            </div>
+            <div className="text-center w-[20%] opacity-50 border-r-2">
+              Date
+            </div>
+            <div className="text-center w-[22%] opacity-50 border-r-2">
               Status
-            </td>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredData.map((data, index) => (
-            <tr
+            </div>
+          </div>
+        </div>
+        <div className="w-full overflow-y-auto bg-white h-52 border-x-2 border-b-2 border-[#6F7175] rounded-b-lg">
+          {semesterData.map((data, index) => (
+            <div
               key={index}
               className="h-14 text-[#45474B] font-bold text-sm flex justify-start"
             >
-              <td className="flex w-[10%] justify-center items-center border-y-1">
+              <span className="flex border-1 border-solid w-[10%] justify-center items-center border-y-1">
                 {index + 1}
-              </td>
-              <td className="flex justify-center text-center items-center w-[20%] border-y-1">
+              </span>
+              <span className="flex border-1 border-solid justify-center text-center items-center w-[20%] border-y-1">
                 Semester {data.semester}
-              </td>
-              <td className="flex justify-center items-center w-[30%] border-y-1">
-                {data.task}
-              </td>
-              <td className="flex justify-center items-center w-[20%] border-y-1">
-                {data.date}
-              </td>
-              <td
+              </span>
+              <span className="flex border-1 border-solid justify-center items-center w-[30%] border-y-1">
+                {getRequirement(data?.check_requirement as number)}
+              </span>
+              <span className="flex border-1 border-solid justify-center items-center w-[20%] border-y-1">
+                {data?.date?.split("T")[0]}
+              </span>
+              <span
                 className={`flex justify-center items-center w-[20%] border-y-1 `}
               >
                 <span
                   className={`text-center sm:px-4 px-1 py-1 sm:py-2 rounded-2xl text-xs font-light sm:font-bold ${
-                    data.status === "Verified" ? "bg-greenBg" : ""
+                    data.status === 1 ? "bg-greenBg" : ""
                   }
-                  ${data.status === "Decline" ? "bg-redBg" : ""}
-                  ${data.status === "Draft" ? "bg-purpleBg" : ""}
-                  ${data.status === "Waiting Approval" ? "bg-yellowBg" : ""}`}
+                  ${data.status === 4 ? "bg-redBg" : ""}
+                  ${data.status === 3 ? "bg-purpleBg" : ""}
+                  ${data.status === 2 ? "bg-yellowBg" : ""}`}
                 >
                   <span
-                    className={`rounded-full inline-block h-2 w-2 sm:mr-2 mr-1 ${
-                      data.status === "Verified" ? "bg-greenDot" : ""
-                    } ${data.status === "Decline" ? "bg-redDot" : ""}
-                    ${data.status === "Draft" ? "bg-purpleDot" : ""}
-                    ${
-                      data.status === "Waiting Approval" ? "bg-yellowDot" : ""
-                    }`}
+                    className={`rounded-full inline-block h-2 w-2 sm:mr-2 mr-1 line-clamp-1 ${
+                      data.status === 1 ? "bg-greenDot" : ""
+                    } ${data.status === 4 ? "bg-redDot" : ""}
+                    ${data.status === 3 ? "bg-purpleDot" : ""}
+                    ${data.status === 2 ? "bg-yellowDot" : ""}`}
                   ></span>
-                  {data.status}
+                  {getStatusText(data?.status as number)}
                 </span>
-              </td>
-            </tr>
+              </span>
+            </div>
           ))}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 }

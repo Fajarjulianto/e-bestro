@@ -1,9 +1,36 @@
 "use client";
 
 import React, { JSX } from "react";
+import { createClient } from "@/utils/supabase/client";
+import { getStudentNameById } from "@/lib/users";
 
 function BannerStudentName(): JSX.Element {
-  const [name] = React.useState<string>("Belva Chelsea Anggara Hartyanto");
+  const [name, setName] = React.useState<string>();
+
+  React.useEffect(() => {
+    async function getStudentName(): Promise<void> {
+      const supabase = createClient();
+      const { data, error } = await supabase.auth.getUser();
+      const user_id = data.user?.id as string;
+
+      if (error) {
+        setName("Server Error");
+      }
+
+      const studentData = await getStudentNameById(user_id);
+
+      if (!studentData) {
+        setName("User Not Found");
+        return;
+      }
+      const studentName: string = studentData[0].name;
+      setName(studentName);
+
+      return;
+    }
+
+    getStudentName();
+  }, []);
   return (
     <p className="font-poppins font-bold">
       <span className="text-md font-light">Selamat Bergabung, </span>

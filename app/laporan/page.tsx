@@ -25,21 +25,21 @@ function LaporanTranskrip(): JSX.Element {
           />
           <div className="pl-6">
             <Navigation />
-            <FormSectionTitle title="Entry Laporan Hasil Belajar"/>
+            <FormSectionTitle title="Entry Laporan Hasil Belajar" />
             <FormProgressBar progress={0.5} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mr-3">
-            <FormSelect
+              <FormSelect
                 label="Semester"
-                options={['1', '2', '3', '4', '5', '6', '7', '8']}
+                options={["1", "2", "3", "4", "5", "6", "7", "8"]}
                 required
               />
-               <FormInput
+              <FormInput
                 label="Tanggal Bayar UKT"
                 placeholder="Tanggal Bayar UKT"
                 type="date"
                 required
               />
-                <FormInput
+              <FormInput
                 label="Indeks Prestasi Semester"
                 placeholder="Nilai Indeks Prestasi Semester"
                 required

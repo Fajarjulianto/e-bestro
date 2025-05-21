@@ -121,8 +121,8 @@ function EventCalendar(): JSX.Element {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden p-4 sm:flex justify-center items-center absolute md:top-[-100px] xl:top-[-130px] right-76" />
-          <CarouselNext className="hidden sm:flex justify-center items-center absolute md:top-[-100px] xl:top-[-130px] right-2" />
+          <CarouselPrevious className="hidden p-4 lg:flex justify-center items-center absolute md:top-[-100px] xl:top-[-130px] right-76" />
+          <CarouselNext className="hidden lg:flex justify-center items-center absolute md:top-[-100px] xl:top-[-130px] right-2" />{" "}
         </Carousel>
       </div>
     </div>
