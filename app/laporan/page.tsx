@@ -44,24 +44,20 @@ function LaporanTranskrip(): JSX.Element {
                 placeholder="Nilai Indeks Prestasi Semester"
                 required
               />
-             
-              
-                <FormInput
+             <FormInput
                 label="Indeks Prestasi Kumulatif"
                 placeholder="Nilai Indeks Prestasi Kumulatif"
                 required
               />
                 <UploadBox label="Upload Transkrip Nilai" />
-              <UploadBox label="Upload bukti bayar UKT" />
-              <div></div>
+                <UploadBox label="Upload bukti bayar UKT" />
+                <div></div>
                     <div className="flex gap-4 h-10 -ml-34">
                       <Button className="bg-white px-10 py-2 !text-secondary border border-secondary">Batal</Button> 
                       <Button className="bg-secondary py-2">Selanjutnya</Button>
                     </div>
                 </div>
-      
-          </div>
-            
+          </div> 
         </div>
       </main>
     </SidebarProvider>
