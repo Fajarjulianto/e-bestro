@@ -1,17 +1,7 @@
 "use client";
 
 import * as React from "react";
-import // AudioWaveform,
-// BookOpen,
-// Bot,
-// Command,
-// Frame,
-// GalleryVerticalEnd,
-// Map,
-// PieChart,
-// Settings2,
-// SquareTerminal,
-"lucide-react";
+import "lucide-react";
 
 import { NavMain } from "@/components/utils/nav-main";
 import { NavUser } from "@/components/utils/nav-user";
@@ -23,6 +13,10 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+
+// Supabase
+import { createClient } from "@/utils/supabase/client";
+import { getStudentData } from "@/lib/users";
 
 const profile: { name: string; id: string; picture: string }[] = [
   {
@@ -107,6 +101,31 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  type Student = { name: string; id: string; picture: string }[];
+
+  const [studentProfile, setStudentProfile] = React.useState<Student>([]);
+
+  React.useEffect(() => {
+    async function getStudent() {
+      const supabase = createClient();
+      const authData = await supabase.auth.getUser();
+      const user_id: string = authData.data.user?.id as string;
+      const data = await getStudentData(user_id);
+
+      if (!data) {
+        setStudentProfile([
+          {
+            name: "Server Error",
+            id: " Server Error",
+            picture: "/Error.png",
+          },
+        ]);
+      }
+
+      // setStudentProfile(data);
+    }
+  }, []);
+
   return (
     <Sidebar
       collapsible="icon"

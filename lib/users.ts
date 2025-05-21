@@ -39,10 +39,23 @@ async function getStudentNameById(user_id: string) {
 
   if (error) {
     console.log(error);
+    return error;
   }
 
-  console.log(data);
+  return data;
+}
 
+async function getStudentData(user_id: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("student")
+    .select("*")
+    .eq("user_id", user_id);
+
+  if (error) {
+    console.log(error);
+    return error;
+  }
   return data;
 }
 
@@ -54,9 +67,16 @@ async function getScholarshipApproval(user_id: string) {
     .eq("user_id", user_id);
   if (error) {
     console.log(error);
+    return error;
   }
 
   return data;
 }
 
-export { signOut, getGradeTarget, getStudentNameById, getScholarshipApproval };
+export {
+  signOut,
+  getGradeTarget,
+  getStudentNameById,
+  getScholarshipApproval,
+  getStudentData,
+};
