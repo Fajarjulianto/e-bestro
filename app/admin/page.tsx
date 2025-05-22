@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useEffect, useState,JSX } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import KonfirmasiBerkas from "@/components/admin/KonfirmasiBerkas";
+import React, { useEffect, useState, JSX } from "react";
+// import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import KonfirmasiBerkas from "@/components/admin/page";
+
+import { createClient } from "@/utils/supabase/client";
 
 interface Summary {
   totalUsers: number;
@@ -17,15 +19,18 @@ export default function AdminDashboard(): JSX.Element {
     totalAchievements: 0,
   });
 
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
 
   useEffect(() => {
     const fetchData = async () => {
-      const [{ count: users }, { count: reports }, { count: achievements }] = await Promise.all([
-        supabase.from("profiles").select("*", { count: "exact", head: true }),
-        supabase.from("laporan_khs").select("*", { count: "exact", head: true }),
-        supabase.from("prestasi").select("*", { count: "exact", head: true }),
-      ]);
+      const [{ count: users }, { count: reports }, { count: achievements }] =
+        await Promise.all([
+          supabase.from("profiles").select("*", { count: "exact", head: true }),
+          supabase
+            .from("laporan_khs")
+            .select("*", { count: "exact", head: true }),
+          supabase.from("prestasi").select("*", { count: "exact", head: true }),
+        ]);
 
       setSummary({
         totalUsers: users || 0,

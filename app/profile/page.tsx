@@ -3,11 +3,7 @@
 import React, { JSX, useEffect, useState } from "react";
 import Image from "next/image";
 import { FiEdit3 } from "react-icons/fi";
-<<<<<<< HEAD
-import { createClient } from "@utils/supabase/client";
-=======
 // import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
->>>>>>> 5594127 (Adding function to get student Data for side-bar and fixing error at profile page)
 
 // Components
 import TitleBanner from "@/components/utils/TitleBanner";
@@ -32,10 +28,6 @@ interface ProfileData {
 
 function Profile(): JSX.Element {
   const [profile, setProfile] = useState<ProfileData | null>(null);
-<<<<<<< HEAD
-  const [uploading, setUploading] = useState(false);
-=======
->>>>>>> 5594127 (Adding function to get student Data for side-bar and fixing error at profile page)
   const supabase = createClient();
 
   useEffect(() => {
@@ -48,50 +40,12 @@ function Profile(): JSX.Element {
       if (!error && data) {
         setProfile(data as ProfileData);
       } else {
-        console.error("Failed to fetch profile:", error);
+        console.log(error);
       }
     };
 
     fetchProfile();
   }, [supabase]);
-
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (file.size > 1024 * 1024) {
-      alert("Ukuran file maksimal 1 MB");
-      return;
-    }
-
-    try {
-      setUploading(true);
-      const fileExt = file.name.split(".").pop();
-      const filePath = `profile-${Date.now()}.${fileExt}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from("avatars")
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data } = supabase.storage.from("avatars").getPublicUrl(filePath);
-
-      const { error: updateError } = await supabase
-        .from("profiles")
-        .update({ profile_image: data.publicUrl })
-        .eq("email", profile?.email);
-
-      if (!updateError) {
-        setProfile((prev) => prev && { ...prev, profile_image: data.publicUrl });
-      }
-    } catch (error) {
-      console.error("Upload error:", error);
-      alert("Terjadi kesalahan saat upload.");
-    } finally {
-      setUploading(false);
-    }
-  };
 
   return (
     <SidebarProvider>
@@ -114,20 +68,12 @@ function Profile(): JSX.Element {
                   alt="Profile"
                   width={144}
                   height={144}
-                  className="rounded-full object-cover border-4 border-yellow-400"
+                  className="rounded-full object-cover border-4 border-primary"
                 />
-                <label htmlFor="profileUpload" className="absolute bottom-1 right-1 bg-white rounded-full p-1 shadow cursor-pointer">
+                <div className="absolute bottom-1 right-1 bg-white rounded-full p-1 shadow">
                   <FiEdit3 className="text-gray-700 w-5 h-5" />
-                  <input
-                    id="profileUpload"
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleUpload}
-                  />
-                </label>
+                </div>
               </div>
-              <p className="text-xs text-gray-500 mt-2">Ukuran maksimal 1 MB</p>
               <div className="mt-4 text-center md:text-left">
                 <h2 className="text-xl font-bold text-gray-800 uppercase">
                   {profile?.full_name || "Nama Mahasiswa"}
@@ -143,13 +89,9 @@ function Profile(): JSX.Element {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
             {/* Profile BESTRO */}
             <div className="bg-white rounded-lg shadow p-6">
-<<<<<<< HEAD
-              <h3 className="text-sm font-semibold text-blue-800 border-b pb-2 mb-4">Profile BESTRO</h3>
-=======
               <h3 className="text-sm font-semibold text-black border-b pb-2 mb-4">
                 Profile BESTRO
               </h3>
->>>>>>> 5594127 (Adding function to get student Data for side-bar and fixing error at profile page)
               <div className="space-y-4 text-sm text-gray-600">
                 <InputField
                   label="Nama Lengkap"
@@ -187,13 +129,9 @@ function Profile(): JSX.Element {
             {/* Informasi Kontak */}
             <div className="bg-white rounded-lg shadow p-6 flex flex-col justify-between">
               <div>
-<<<<<<< HEAD
-                <h3 className="text-sm font-semibold text-blue-800 border-b pb-2 mb-4">Informasi Kontak</h3>
-=======
                 <h3 className="text-sm font-semibold text-black border-b pb-2 mb-4">
                   Informasi Kontak
                 </h3>
->>>>>>> 5594127 (Adding function to get student Data for side-bar and fixing error at profile page)
                 <div className="space-y-4 text-sm text-gray-600">
                   <InputField
                     label="Email"

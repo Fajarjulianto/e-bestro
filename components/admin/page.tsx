@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+// import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Button from "@/components/Button";
+import { createClient } from "@/utils/supabase/client";
 
 interface Berkas {
   id: string;
@@ -14,7 +15,7 @@ interface Berkas {
 
 const KonfirmasiBerkas: React.FC = () => {
   const [berkasMasuk, setBerkasMasuk] = useState<Berkas[]>([]);
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
 
   useEffect(() => {
     const fetchBerkas = async () => {
