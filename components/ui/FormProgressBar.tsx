@@ -3,7 +3,7 @@
 import React from "react";
 
 //context
-import { useProgressBar } from "@/app/context/store";
+import { useProgressBar } from "@/context/store";
 
 interface Progress {
   progress: number; // 0 to 1

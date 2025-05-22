@@ -1,12 +1,16 @@
 "use client";
 
 import React, { JSX } from "react";
+
+// Components
 import FormProgressBar from "../ui/FormProgressBar";
 import { FormSelect } from "../ui/FormSelect";
-import { FormInput } from "../ui/FormInput";
 import UploadBox from "../ui/UploadBox";
-import Button from "../Button";
+import FooterButton from "./FooterButton";
 import FormInputSemester from "./FormInputSemester";
+import FormInputPayment from "./FormInputPayment";
+import GradeUploadBox from "./GradeUploadBox";
+import FormInputCumulativeGrade from "./FormInputCumulativeGrade";
 
 function InputForm(): JSX.Element {
   return (
@@ -22,37 +26,29 @@ function InputForm(): JSX.Element {
           <FormInputSemester
             label="Indeks Prestasi Semester"
             placeholder="Nilai Indeks Prestasi Semester"
+            type="number"
             required={true}
           />
-          <UploadBox label="Upload Transkrip Nilai" />
+          <GradeUploadBox label="Upload Transkrip Nilai" />
         </div>
         <div className="flex flex-col gap-y-3">
-          <FormInput
+          <FormInputPayment
             label="Tanggal Bayar UKT"
             placeholder="Tanggal Bayar UKT"
             type="date"
             required={true}
-            // onChange={()=> updateSemesterGradeIndex()}
           />
 
-          <FormInput
+          <FormInputCumulativeGrade
             label="Indeks Prestasi Kumulatif"
             placeholder="Nilai Indeks Prestasi Kumulatif"
+            type="number"
             required={true}
           />
 
           <UploadBox label="Upload bukti bayar UKT" />
         </div>
-        <div className="col-span-1 md:col-span-2">
-          <div className="flex gap-4 h-10 justify-center">
-            <Button className="bg-white px-10 py-2 hover:text-primary hover:bg-secondary text-secondary border border-secondary">
-              Batal
-            </Button>
-            <Button className="bg-secondary text-white hover:bg-white hover:text-primary hover:border-primary border border-secondary py-2 px-11">
-              Kirim
-            </Button>
-          </div>
-        </div>
+        <FooterButton />
       </div>
     </form>
   );

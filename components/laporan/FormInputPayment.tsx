@@ -14,7 +14,7 @@ interface FormInputProps {
 // Context
 import { useReport, useProgressBar } from "@/context/store";
 
-function FormInputSemester({
+function FormInputPayment({
   label,
   placeholder,
   type = "text",
@@ -22,26 +22,27 @@ function FormInputSemester({
   required,
   className = "",
 }: FormInputProps) {
-  const { semesterGradeIndex, updateSemesterGradeIndex } = useReport();
+  const { paymentDate, updatePaymentDate } = useReport();
   const { progress, updateProgress } = useProgressBar();
 
   const isHasValue = React.useRef(false);
 
   React.useEffect(() => {
-    if (Boolean(semesterGradeIndex && !isHasValue.current)) {
-      updateProgress(Math.min(progress + 0.2, 1));
+    console.log("Date", paymentDate);
+    if (Boolean(paymentDate && !isHasValue.current)) {
+      updateProgress(Math.min(progress + 0.1, 1));
       isHasValue.current = true;
     }
 
-    if (Boolean(!semesterGradeIndex && isHasValue.current)) {
-      updateProgress(Math.min(progress - 0.2, 1));
+    if (Boolean(!paymentDate && isHasValue.current)) {
+      updateProgress(Math.min(progress - 0.1, 1));
       isHasValue.current = false;
     }
-  }, [semesterGradeIndex]);
+  }, [paymentDate]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    const data = Number(event.target.value);
-    updateSemesterGradeIndex(data);
+    const data = String(event.target.value);
+    updatePaymentDate(data);
   }
   return (
     <div className={className}>
@@ -51,7 +52,7 @@ function FormInputSemester({
       <input
         type={type}
         placeholder={placeholder}
-        value={semesterGradeIndex ?? ""}
+        value={paymentDate}
         required={required}
         onChange={(event) => handleChange(event)}
         className="w-full bg-gray-200 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring"
@@ -60,4 +61,4 @@ function FormInputSemester({
   );
 }
 
-export default FormInputSemester;
+export default FormInputPayment;

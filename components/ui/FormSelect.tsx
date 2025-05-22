@@ -2,7 +2,7 @@
 import React from "react";
 
 //context
-import { useProgressBar, useReport } from "@/app/context/store";
+import { useProgressBar, useReport } from "@/context/store";
 
 interface FormSelectProps {
   label: string;
@@ -27,7 +27,7 @@ export function FormSelect({
   React.useEffect(() => {
     // Only update progress once when semester is set and progress hasn't been updated yet
     if (semester && !hasUpdatedProgress.current) {
-      updateProgress(Math.min(progress + 0.2, 1)); // Ensure progress doesn't exceed 1
+      updateProgress(Math.min(progress + 0.1, 1)); // Ensure progress doesn't exceed 1
       hasUpdatedProgress.current = true;
     }
   }, [semester]);

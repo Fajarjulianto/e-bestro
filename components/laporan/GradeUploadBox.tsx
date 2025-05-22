@@ -7,7 +7,7 @@ interface UploadBoxProps {
   onFileSelect?: (file: File) => void;
 }
 
-export default function UploadBox({ label, onFileSelect }: UploadBoxProps) {
+function GradeUploadBox({ label, onFileSelect }: UploadBoxProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState<string>("");
 
@@ -68,3 +68,5 @@ export default function UploadBox({ label, onFileSelect }: UploadBoxProps) {
     </div>
   );
 }
+
+export default GradeUploadBox;

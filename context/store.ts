@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { type ProgressBar, type Report } from "@/app/context/type";
+import { type ProgressBar, type Report } from "@/context/type";
 
 const useProgressBar = create<ProgressBar>((set) => ({
   progress: 0,
@@ -10,18 +10,18 @@ const useReport = create<Report>((set) => ({
   // Grade
   semester: 0,
   updateSemester: (newSemester) => set({ semester: newSemester }),
-  semesterGradeIndex: 0,
+  semesterGradeIndex: null,
   updateSemesterGradeIndex: (newGrade) => set({ semesterGradeIndex: newGrade }),
   gradeFile: null,
-  updateGradeFile: (newFile: File) => set({ gradeFile: newFile }),
+  updateGradeFile: (newFile) => set({ gradeFile: newFile }),
   // Payment
   paymentDate: "",
   updatePaymentDate: (params) => set({ paymentDate: params }),
-  cumulativeGradeIndex: 0,
-  updatecumulativeGradeIndex: (newGrade) =>
+  cumulativeGradeIndex: null,
+  updateCumulativeGradeIndex: (newGrade) =>
     set({ cumulativeGradeIndex: newGrade }),
   paymentFile: null,
-  updatePaymentFile: (params: File) => set({ paymentFile: params }),
+  updatePaymentFile: (params) => set({ paymentFile: params }),
 }));
 
 export { useProgressBar, useReport };

@@ -14,7 +14,7 @@ interface FormInputProps {
 // Context
 import { useReport, useProgressBar } from "@/context/store";
 
-function FormInputSemester({
+function FormInputCumulativeGrade({
   label,
   placeholder,
   type = "text",
@@ -22,26 +22,26 @@ function FormInputSemester({
   required,
   className = "",
 }: FormInputProps) {
-  const { semesterGradeIndex, updateSemesterGradeIndex } = useReport();
+  const { cumulativeGradeIndex, updateCumulativeGradeIndex } = useReport();
   const { progress, updateProgress } = useProgressBar();
 
   const isHasValue = React.useRef(false);
 
   React.useEffect(() => {
-    if (Boolean(semesterGradeIndex && !isHasValue.current)) {
+    if (Boolean(cumulativeGradeIndex && !isHasValue.current)) {
       updateProgress(Math.min(progress + 0.2, 1));
       isHasValue.current = true;
     }
 
-    if (Boolean(!semesterGradeIndex && isHasValue.current)) {
+    if (Boolean(!cumulativeGradeIndex && isHasValue.current)) {
       updateProgress(Math.min(progress - 0.2, 1));
       isHasValue.current = false;
     }
-  }, [semesterGradeIndex]);
+  }, [cumulativeGradeIndex]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const data = Number(event.target.value);
-    updateSemesterGradeIndex(data);
+    updateCumulativeGradeIndex(data);
   }
   return (
     <div className={className}>
@@ -51,7 +51,7 @@ function FormInputSemester({
       <input
         type={type}
         placeholder={placeholder}
-        value={semesterGradeIndex ?? ""}
+        value={cumulativeGradeIndex ?? ""}
         required={required}
         onChange={(event) => handleChange(event)}
         className="w-full bg-gray-200 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring"
@@ -60,4 +60,4 @@ function FormInputSemester({
   );
 }
 
-export default FormInputSemester;
+export default FormInputCumulativeGrade;

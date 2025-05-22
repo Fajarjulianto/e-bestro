@@ -7,28 +7,28 @@ interface UploadBoxProps {
   onFileSelect?: (file: File) => void;
 }
 
-export default function UploadBox({ label, onFileSelect }: UploadBoxProps) {
+function PaymentUploadBox({ label, onFileSelect }: UploadBoxProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState<string>("");
 
-  const { gradeFile, updateGradeFile } = useReport();
+  const { paymentFile, updatePaymentFile } = useReport();
   const { progress, updateProgress } = useProgressBar();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setFileName(file.name);
-      updateGradeFile(file);
+      updatePaymentFile(file);
       onFileSelect?.(file);
     }
   };
   // Updating progress bar
   useEffect(() => {
-    if (gradeFile) {
-      console.log(gradeFile);
+    if (paymentFile) {
+      console.log(paymentFile);
       updateProgress(progress + 0.2);
     }
-  }, [gradeFile]);
+  }, [paymentFile]);
 
   return (
     <div className="w-full">
@@ -68,3 +68,5 @@ export default function UploadBox({ label, onFileSelect }: UploadBoxProps) {
     </div>
   );
 }
+
+export default PaymentUploadBox;
