@@ -1,10 +1,16 @@
-import React from 'react';
+"use client";
 
-interface FormProgressBarProps {
+import React from "react";
+
+//context
+import { useProgressBar } from "@/app/context/store";
+
+interface Progress {
   progress: number; // 0 to 1
 }
 
-export default function FormProgressBar({ progress }: FormProgressBarProps) {
+export default function FormProgressBar() {
+  const { progress }: Progress = useProgressBar();
   return (
     <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden mb-10">
       <div

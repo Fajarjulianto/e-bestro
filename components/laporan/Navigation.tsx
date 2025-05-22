@@ -32,7 +32,7 @@ function Navigation(): JSX.Element {
 
   return (
     <div className="pt-4 w-full pb-2 xl:w-full overflow-x-auto">
-      <div className="flex w-[000px] xl:w-full gap-4 whitespace-nowrap">
+      <div className="flex w-[100px] xl:w-full gap-4 whitespace-nowrap">
         {data.map((items) => (
           <NavigationElement
             key={items.number}

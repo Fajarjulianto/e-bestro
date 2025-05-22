@@ -1,6 +1,6 @@
 "use client";
 
-import React, { JSX }  from "react";
+import React, { JSX } from "react";
 import TitleBanner from "@/components/utils/TitleBanner";
 import Navigation from "@/components/laporan/Navigation";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -58,7 +58,7 @@ function UnggahPrestasi(): JSX.Element {
                 required
               />
               <div className="flex items-end">
-                <Button className="bg-gray-700 text-white px-6 py-2 rounded">
+                <Button className="bg-secondary text-white hover:text-primary border border-secondary py-2 px-11">
                   Simpan
                 </Button>
               </div>

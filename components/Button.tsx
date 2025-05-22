@@ -1,9 +1,9 @@
-import React, {JSX} from 'react';
+import React, { JSX } from "react";
 
 interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
-  type?: 'button' | 'submit' | 'reset';
+  type?: "button" | "submit" | "reset";
   className?: string;
   formAction?: () => void;
 }
@@ -11,19 +11,18 @@ interface ButtonProps {
 export default function Button({
   children,
   onClick,
-  type = 'button',
-  className = '',
+  type = "button",
+  className = "",
   formAction,
 }: ButtonProps): JSX.Element {
   return (
     <button
       type={type}
       onClick={onClick}
-     formAction={formAction}
-      className={`rounded bg-secondary text-white px-4 py-2 hover:bg-green-700 transition ${className}`}
+      formAction={formAction}
+      className={`rounded transition ${className}`}
     >
       {children}
-     
     </button>
   );
 }
