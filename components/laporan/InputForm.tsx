@@ -5,7 +5,7 @@ import React, { JSX } from "react";
 // Components
 import FormProgressBar from "../ui/FormProgressBar";
 import { FormSelect } from "../ui/FormSelect";
-import UploadBox from "../ui/UploadBox";
+import PaymentUploadBox from "./PaymentUploadBox";
 import FooterButton from "./FooterButton";
 import FormInputSemester from "./FormInputSemester";
 import FormInputPayment from "./FormInputPayment";
@@ -46,7 +46,7 @@ function InputForm(): JSX.Element {
             required={true}
           />
 
-          <UploadBox label="Upload bukti bayar UKT" />
+          <PaymentUploadBox label="Upload bukti bayar UKT" />
         </div>
         <FooterButton />
       </div>

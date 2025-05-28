@@ -16,6 +16,7 @@ function PaymentUploadBox({ label, onFileSelect }: UploadBoxProps) {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
     if (file) {
       setFileName(file.name);
       updatePaymentFile(file);
@@ -25,7 +26,7 @@ function PaymentUploadBox({ label, onFileSelect }: UploadBoxProps) {
   // Updating progress bar
   useEffect(() => {
     if (paymentFile) {
-      console.log(paymentFile);
+      console.log(paymentFile.name);
       updateProgress(progress + 0.2);
     }
   }, [paymentFile]);
@@ -42,7 +43,7 @@ function PaymentUploadBox({ label, onFileSelect }: UploadBoxProps) {
         <div className="flex justify-center mb-2 text-gray-500 text-3xl">
           <FiUploadCloud />
         </div>
-        {fileName ? (
+        {paymentFile ? (
           <p className="text-sm text-gray-700 font-medium">{fileName}</p>
         ) : (
           <>
@@ -50,7 +51,7 @@ function PaymentUploadBox({ label, onFileSelect }: UploadBoxProps) {
               Choose a file or drag & drop it here.
             </p>
             <p className="text-xs text-gray-500 mb-4">
-              JPEG, PNG, and PDF formats, up to 5 MB.
+              PDF formats, up to 5 MB.
             </p>
             <span className="inline-block px-4 py-2 bg-white border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50">
               Browse File

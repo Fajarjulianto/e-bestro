@@ -76,23 +76,22 @@ const labelData: LabelData = [
         title: "Lapor KHS/Transkrip",
         url: "/laporan?data=transkrip",
       },
-      {
-        title: "Laporan Pembayaran UKT",
-        url: "/laporan?data=pembayaran",
-      },
+      // {
+      //   title: "Laporan Pembayaran UKT",
+      //   url: "/pembayaran",
+      // },
       {
         title: "Laporan Prestasi",
-        url: "/laporan?data=prestasi",
+        url: "/prestasi",
       },
       {
         title: "Laporan Pengembangan Diri",
-        url: "/laporan?data=pengembangan-diri",
+        url: "/perkembangan-diri",
       },
     ],
   },
 ];
 
-// This is sample data.
 const data = {
   user: {
     name: "Logout Account",
@@ -106,7 +105,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [studentProfile, setStudentProfile] = React.useState<Student>([]);
 
   React.useEffect(() => {
-    async function getStudent() {
+    async function getStudent(): Promise<void> {
       const supabase = createClient();
       const authData = await supabase.auth.getUser();
       const user_id: string = authData.data.user?.id as string;
@@ -121,9 +120,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           },
         ]);
       }
+      console.log(data);
 
-      // setStudentProfile(data);
+      setStudentProfile(data as Student);
     }
+
+    getStudent();
   }, []);
 
   return (

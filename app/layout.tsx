@@ -1,5 +1,12 @@
 import "@/styles/globals.css";
 
+export const metadata = {
+  title: "E-Bestro",
+  icons: {
+    icon: "/1st.png",
+  },
+};
+
 export default function RootLayout({
   children,
 }: {

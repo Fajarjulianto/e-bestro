@@ -8,6 +8,7 @@ import FormSectionTitle from "@/components/ui/FormSectionTitle";
 import InputForm from "@/components/laporan/InputForm";
 
 import { AppSidebar } from "@/components/utils/app-sidebar";
+
 function LaporanTranskrip(): JSX.Element {
   return (
     <SidebarProvider>
