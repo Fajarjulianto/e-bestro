@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { type ProgressBar, type Report } from "@/context/type";
+import { type ProgressBar, type Report, type Evaluation } from "@/context/type";
 
 const useProgressBar = create<ProgressBar>((set) => ({
   progress: 0,
@@ -24,4 +24,27 @@ const useReport = create<Report>((set) => ({
   updatePaymentFile: (params) => set({ paymentFile: params }),
 }));
 
-export { useProgressBar, useReport };
+const useEvaluation = create<Evaluation>((set) => ({
+  // current semester
+  academicProgress: "",
+  updateAcademicProgress: (newProgress) =>
+    set({ academicProgress: newProgress }),
+  challenges: "",
+  updateChallenges: (newChallenges) => set({ challenges: newChallenges }),
+  solvingChallenge: "",
+  updateSolvingChallenge: (newSolvingChallenge) =>
+    set({ solvingChallenge: newSolvingChallenge }),
+  nonAcademicEvaluation: "",
+  updateNonAcademicEvaluation: (newEvaluation) =>
+    set({ nonAcademicEvaluation: newEvaluation }),
+
+  // next semester
+  academicTarget: "",
+  updateAcademicTarget: (newTarget) => set({ academicTarget: newTarget }),
+  nonAcademicTarget: "",
+  updateNonAcademicTarget: (newTarget) => set({ nonAcademicTarget: newTarget }),
+  strategy: "",
+  updateStrategy: (newStrategy) => set({ strategy: newStrategy }),
+}));
+
+export { useProgressBar, useReport, useEvaluation };

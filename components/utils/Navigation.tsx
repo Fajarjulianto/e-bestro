@@ -3,7 +3,7 @@
 import React, { JSX } from "react";
 
 //components
-import NavigationElement from "./NavigationElement";
+import NavigationElement from "../laporan/NavigationElement";
 
 function Navigation(): JSX.Element {
   type Data = {

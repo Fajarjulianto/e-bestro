@@ -2,7 +2,7 @@
 
 import React, { JSX } from "react";
 import TitleBanner from "@/components/utils/TitleBanner";
-import Navigation from "@/components/laporan/Navigation";
+import Navigation from "@/components/utils/Navigation";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import FormProgressBar from "@/components/ui/FormProgressBar";
 import FormSectionTitle from "@/components/ui/FormSectionTitle";

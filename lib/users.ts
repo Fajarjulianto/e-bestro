@@ -180,7 +180,7 @@ async function uploadGradeReport({
   cumulativeGradeIndex: number;
   paymentDate: string;
   user_id: string;
-}) {
+}): Promise<void | Error> {
   try {
     if (
       semester === null ||
@@ -206,8 +206,66 @@ async function uploadGradeReport({
 
     if (error) throw error;
   } catch (error) {
-    console.error("Gagal mengunggah:", error);
-    return error;
+    if (error instanceof Error) {
+      console.error("Gagal mengunggah:", error);
+      return error;
+    }
+  }
+}
+
+async function uploadSelfProgression({
+  academicProgress,
+  challenges,
+  nonAcademicEvaluation,
+  solvingChallenge,
+  academicTarget,
+  nonAcademicTarget,
+  strategy,
+  user_id,
+}: {
+  academicProgress: string;
+  challenges: string;
+  nonAcademicEvaluation: string;
+  solvingChallenge: string;
+  academicTarget: string;
+  nonAcademicTarget: string;
+  strategy: string;
+  user_id: string;
+}): Promise<string | void> {
+  const supabase = await createClient();
+  try {
+    const { error } = await supabase.from("selfProgression").insert({
+      academicProgress,
+      challenges,
+      nonAcademicEvaluation,
+      solvingChallenge,
+      academicTarget,
+      nonAcademicTarget,
+      strategy,
+      user_id,
+    });
+
+    if (
+      !academicProgress ||
+      !challenges ||
+      !nonAcademicEvaluation ||
+      !solvingChallenge ||
+      !academicTarget ||
+      !nonAcademicTarget ||
+      !strategy
+    ) {
+      throw new Error("Mohon lengkapi semua field sebelum mengirim.");
+    }
+
+    if (error) {
+      console.log(error);
+      throw new Error("Gagal mengunggah data perkembangan diri");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error uploading self progression:", error);
+      return error?.message;
+    }
   }
 }
 
@@ -220,4 +278,5 @@ export {
   uploadGradeDocument,
   uploadPaymentDocument,
   uploadGradeReport,
+  uploadSelfProgression,
 };

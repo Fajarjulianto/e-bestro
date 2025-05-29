@@ -20,4 +20,24 @@ interface Report {
   updatePaymentFile: (params: File | null) => void;
 }
 
-export { type ProgressBar, type Report };
+interface Evaluation {
+  // current semester
+  academicProgress: string | null;
+  updateAcademicProgress: (params: string) => void;
+  nonAcademicEvaluation: string | null;
+  updateNonAcademicEvaluation: (params: string) => void;
+  challenges: string | null;
+  updateChallenges: (params: string) => void;
+  solvingChallenge: string | null;
+  updateSolvingChallenge: (params: string) => void;
+
+  // next semester
+  academicTarget: string | null;
+  updateAcademicTarget: (params: string) => void;
+  nonAcademicTarget: string | null;
+  updateNonAcademicTarget: (params: string) => void;
+  strategy: string | null;
+  updateStrategy: (params: string) => void;
+}
+
+export { type ProgressBar, type Report, type Evaluation };
