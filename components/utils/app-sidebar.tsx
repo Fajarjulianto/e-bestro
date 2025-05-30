@@ -16,15 +16,7 @@ import {
 
 // Supabase
 import { createClient } from "@/utils/supabase/client";
-import { getStudentData } from "@/lib/users";
-
-const profile: { name: string; id: string; picture: string }[] = [
-  {
-    name: "Belva Chelsea Anggara Hartantyo",
-    id: "BS1-230179",
-    picture: "/Avatar.png",
-  },
-];
+import { getStudentProfile } from "@/lib/users";
 
 type LabelData = {
   title: string;
@@ -40,7 +32,7 @@ type LabelData = {
 const labelData: LabelData = [
   {
     title: "Dashboard",
-    url: "/",
+    url: "/dashboard",
     icon: "/Home.png",
     isActive: false,
   },
@@ -100,34 +92,46 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  type Student = { name: string; id: string; picture: string }[];
-
-  const [studentProfile, setStudentProfile] = React.useState<Student>([]);
+  type Student = {
+    name: string;
+    studentID: string;
+    profilePicture: string;
+  }[];
+  const [studentProfile, setStudentProfile] = React.useState<Student>([
+    {
+      name: "Loading...",
+      studentID: "Loading...",
+      profilePicture: "/Avatar.png",
+    },
+  ]);
 
   React.useEffect(() => {
     async function getStudent(): Promise<void> {
       const supabase = createClient();
       const authData = await supabase.auth.getUser();
       const user_id: string = authData.data.user?.id as string;
-      const data = await getStudentData(user_id);
+      const data = await getStudentProfile(user_id);
 
       if (!data) {
         setStudentProfile([
           {
-            name: "Server Error",
-            id: " Server Error",
-            picture: "/Error.png",
+            name: "Data Not Found",
+            studentID: "Data Not Found",
+            profilePicture: "/Avatar.png",
           },
         ]);
+        console.log("error 1");
+        return;
       }
-      console.log(data);
 
-      setStudentProfile(data as Student);
+      const { name, profilePicture, studentID } = data[0];
+
+      setStudentProfile([{ name, studentID, profilePicture }] as Student);
     }
 
     getStudent();
   }, []);
-
+  console.log(studentProfile);
   return (
     <Sidebar
       collapsible="icon"
@@ -135,7 +139,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       className="font-poppins border-none bg-primary"
     >
       <SidebarHeader>
-        <TeamSwitcher teams={profile} />
+        <TeamSwitcher teams={studentProfile} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={labelData} />

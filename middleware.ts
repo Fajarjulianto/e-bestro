@@ -6,5 +6,13 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/laporan", "/berkas-administrasi"],
+  matcher: [
+    "/dashboard",
+    "/laporan",
+    "/berkas-administrasi",
+    "/perkembangan-diri",
+    "/prestasi",
+    "/profile",
+    "/admin",
+  ],
 };

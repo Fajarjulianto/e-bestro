@@ -26,8 +26,8 @@ export function TeamSwitcher({
 }: {
   teams: {
     name: string;
-    picture: string;
-    id: string;
+    profilePicture: string;
+    studentID: string;
   }[];
 }) {
   // const { isMobile } = useSidebar();
@@ -50,7 +50,7 @@ export function TeamSwitcher({
               <div className="bg-transparent text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-full">
                 {/* <activeTeam.logo className="size-4" /> */}
                 <Image
-                  src={activeTeam.picture}
+                  src={activeTeam.profilePicture || "/Avatar.png"}
                   height={30}
                   width={30}
                   alt="Profile pinture"
@@ -59,7 +59,7 @@ export function TeamSwitcher({
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate text-xs text-[#757575]">
-                  {activeTeam.id}
+                  {activeTeam.studentID}
                 </span>
                 <span className="truncate text-md font-bold">
                   {activeTeam.name}

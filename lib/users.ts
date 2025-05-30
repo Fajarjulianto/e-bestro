@@ -5,16 +5,15 @@ import { redirect } from "next/navigation";
 
 // signing out user
 async function signOut() {
-  try {
-    const supabase = await createClient();
-    const { error } = await supabase.auth.signOut();
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signOut();
 
-    if (error) throw error;
-
-    redirect("/login");
-  } catch (error) {
+  if (error) {
     console.error("Sign out failed:", error);
+    return error.message;
   }
+
+  redirect("/login");
 }
 
 // ------------------ getting ---------------------
@@ -165,6 +164,43 @@ async function uploadGradeDocument(file: File, user_id: string) {
   }
 }
 
+async function getStudentProfile(user_id: string) {
+  const supabase = await createClient();
+  try {
+    const { data, error } = await supabase
+      .from("student")
+      .select("*, image(*)")
+      .eq("user_id", user_id);
+
+    if (error) {
+      throw new Error("Gagal mengambil data profil Mahasiswa");
+    }
+    if (!data || data.length === 0) {
+      throw new Error("Data profil Mahasiswa tidak ditemukan");
+    }
+
+    const fileName = data[0]?.image?.[0]?.fileName as string;
+    // console.log("File name:", fileName);
+    const profilePicture = await supabase.storage
+      .from("profile-picture")
+      .createSignedUrl(`avatars/${fileName}`, 60 * 60 * 24 * 7);
+
+    // console.log(profilePicture.data?.signedUrl);
+
+    const updatedData = data.map((student) => ({
+      ...student,
+      profilePicture: profilePicture.data?.signedUrl,
+    }));
+
+    return updatedData;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+      return error.message as string;
+    }
+  }
+}
+
 // ------------------ uploading ---------------------
 
 // uploading grade report to DB
@@ -271,6 +307,7 @@ async function uploadSelfProgression({
 
 export {
   signOut,
+  getStudentProfile,
   getGradeTarget,
   getStudentNameById,
   getScholarshipApproval,
