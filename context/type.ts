@@ -40,4 +40,12 @@ interface Evaluation {
   updateStrategy: (params: string) => void;
 }
 
-export { type ProgressBar, type Report, type Evaluation };
+interface Student {
+  name: string;
+  updateName: (params: string) => void;
+  studentID: string;
+  updateStudentID: (params: string) => void;
+  profilePicture: string;
+  updateProfilePicture: (params: string) => void;
+}
+export { type ProgressBar, type Report, type Evaluation, type Student };

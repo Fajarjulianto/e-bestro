@@ -164,7 +164,29 @@ async function uploadGradeDocument(file: File, user_id: string) {
   }
 }
 
-async function getStudentProfile(user_id: string) {
+type StudentData = {
+  id: string;
+  created_at: string;
+  name: string;
+  studentID: string;
+  university: string;
+  department: string;
+  faculty: string;
+  user_id: string;
+  birthDate: string | null;
+  gender: string | null;
+  image: {
+    created_at: string;
+    fileName: string;
+    id: string;
+    user_id: string;
+  }[];
+  profilePicture: string;
+}[];
+
+async function getStudentProfile(
+  user_id: string
+): Promise<StudentData | string | undefined> {
   const supabase = await createClient();
   try {
     const { data, error } = await supabase
@@ -191,6 +213,8 @@ async function getStudentProfile(user_id: string) {
       ...student,
       profilePicture: profilePicture.data?.signedUrl,
     }));
+
+    // console.log("Updated data:", updatedData);
 
     return updatedData;
   } catch (error) {

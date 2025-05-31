@@ -14,10 +14,6 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 
-// Supabase
-import { createClient } from "@/utils/supabase/client";
-import { getStudentProfile } from "@/lib/users";
-
 type LabelData = {
   title: string;
   url?: string;
@@ -92,46 +88,6 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  type Student = {
-    name: string;
-    studentID: string;
-    profilePicture: string;
-  }[];
-  const [studentProfile, setStudentProfile] = React.useState<Student>([
-    {
-      name: "Loading...",
-      studentID: "Loading...",
-      profilePicture: "/Avatar.png",
-    },
-  ]);
-
-  React.useEffect(() => {
-    async function getStudent(): Promise<void> {
-      const supabase = createClient();
-      const authData = await supabase.auth.getUser();
-      const user_id: string = authData.data.user?.id as string;
-      const data = await getStudentProfile(user_id);
-
-      if (!data) {
-        setStudentProfile([
-          {
-            name: "Data Not Found",
-            studentID: "Data Not Found",
-            profilePicture: "/Avatar.png",
-          },
-        ]);
-        console.log("error 1");
-        return;
-      }
-
-      const { name, profilePicture, studentID } = data[0];
-
-      setStudentProfile([{ name, studentID, profilePicture }] as Student);
-    }
-
-    getStudent();
-  }, []);
-  console.log(studentProfile);
   return (
     <Sidebar
       collapsible="icon"
@@ -139,7 +95,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       className="font-poppins border-none bg-primary"
     >
       <SidebarHeader>
-        <TeamSwitcher teams={studentProfile} />
+        <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={labelData} />

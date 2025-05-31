@@ -1,42 +1,52 @@
 import * as React from "react";
-import {
-  ChevronsUpDown,
-  //  Plus
-} from "lucide-react";
+// import { ChevronsUpDown } from "lucide-react";
 import Image from "next/image";
-
 import {
-  DropdownMenu,
-  // DropdownMenuContent,
-  // DropdownMenuItem,
-  // DropdownMenuLabel,
-  // DropdownMenuSeparator,
-  // DropdownMenuShortcut,
   DropdownMenuTrigger,
+  DropdownMenu,
 } from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  // useSidebar,
 } from "@/components/ui/sidebar";
+import { createClient } from "@/utils/supabase/client";
+import { getStudentProfile } from "@/lib/users";
 
-export function TeamSwitcher({
-  teams,
-}: {
-  teams: {
+export function TeamSwitcher() {
+  type Student = {
     name: string;
-    profilePicture: string;
     studentID: string;
-  }[];
-}) {
-  // const { isMobile } = useSidebar();
-  const [activeTeam] = React.useState(teams[0]);
-  // console.log("activeTeam", activeTeam);
+    profilePicture: string;
+  };
 
-  if (!activeTeam) {
-    return null;
-  }
+  const [profile, setProfile] = React.useState<Student | null>(null);
+
+  const fetchData = React.useCallback(async () => {
+    const supabase = createClient();
+    const userData = await supabase.auth.getUser();
+    const user_id = userData.data.user?.id;
+
+    if (!user_id) {
+      setProfile(null);
+      return;
+    }
+
+    const data = await getStudentProfile(user_id);
+    if (Array.isArray(data)) {
+      setProfile({
+        studentID: data[0].studentID,
+        name: data[0].name,
+        profilePicture: data[0].profilePicture,
+      });
+    } else {
+      setProfile(null);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return (
     <SidebarMenu>
@@ -47,25 +57,23 @@ export function TeamSwitcher({
               size="lg"
               className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
             >
-              <div className="bg-transparent text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-full">
-                {/* <activeTeam.logo className="size-4" /> */}
+              <div className="flex items-center gap-2">
                 <Image
-                  src={activeTeam.profilePicture || "/Avatar.png"}
-                  height={30}
-                  width={30}
-                  alt="Profile pinture"
-                  className="w-full h-full"
+                  src={profile?.profilePicture || "/avatar-icon.png"}
+                  height={60}
+                  width={60}
+                  alt="Profile picture"
+                  className="w-8 h-8 rounded-full"
                 />
+                <div className="flex flex-col text-left text-sm leading-tight w-full">
+                  <span className="truncate text-xs text-[#757575]">
+                    {profile?.studentID || "Unknown"}
+                  </span>
+                  <span className="truncate text-md font-bold line-clamp-1">
+                    {profile?.name || "Guest"}
+                  </span>
+                </div>
               </div>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate text-xs text-[#757575]">
-                  {activeTeam.studentID}
-                </span>
-                <span className="truncate text-md font-bold">
-                  {activeTeam.name}
-                </span>
-              </div>
-              <ChevronsUpDown className="ml-auto" />
             </SidebarMenuButton>
           </DropdownMenuTrigger>
         </DropdownMenu>

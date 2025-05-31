@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import { type ProgressBar, type Report, type Evaluation } from "@/context/type";
+import {
+  type ProgressBar,
+  type Report,
+  type Evaluation,
+  Student,
+} from "@/context/type";
 
 const useProgressBar = create<ProgressBar>((set) => ({
   progress: 0,
@@ -47,4 +52,13 @@ const useEvaluation = create<Evaluation>((set) => ({
   updateStrategy: (newStrategy) => set({ strategy: newStrategy }),
 }));
 
-export { useProgressBar, useReport, useEvaluation };
+const useStudent = create<Student>((set) => ({
+  name: "Loading...",
+  updateName: (newName) => set({ name: newName }),
+  studentID: "Loading...",
+  updateStudentID: (newID) => set({ studentID: newID }),
+  profilePicture: "/Avatar.png",
+  updateProfilePicture: (newPicture) => set({ profilePicture: newPicture }),
+}));
+
+export { useProgressBar, useReport, useEvaluation, useStudent };
