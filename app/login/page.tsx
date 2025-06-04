@@ -45,7 +45,7 @@ export default function Page(): JSX.Element {
             <div className="text-sm text-gray-500 cursor-pointer hover:underline text-right">
               Forgot Password?
             </div>
-           <Button  formAction={login} type="submit" className="!text-white w-full rounded-md py-2">Login</Button>
+           <Button  formAction={login} type="submit" className="!text-white w-full rounded-md py-2 bg-secondary">Login</Button>
           </form>
 
           <p className="mt-8 text-xs text-gray-500 text-center">
