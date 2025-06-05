@@ -1,33 +1,38 @@
-"use client";
-
 import React, { JSX } from "react";
+// header components
 import TitleBanner from "@/components/utils/TitleBanner";
 import Navigation from "@/components/utils/Navigation";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+
+// main components
 import FormProgressBar from "@/components/ui/FormProgressBar";
 import FormSectionTitle from "@/components/ui/FormSectionTitle";
-import UploadBox from "@/components/ui/UploadBox";
-import { FormSelect } from "@/components/ui/FormSelect";
-import { FormInput } from "@/components/ui/FormInput";
 import Button from "@/components/Button";
+import AchievementLevel from "@/components/prestasi/AchivementLevel";
+import AchivementName from "@/components/prestasi/AchivementName";
+import Organizer from "@/components/prestasi/Organizer";
+import AcquiredYear from "@/components/prestasi/AcquiredYear";
+
+// sidebar components
 import { AppSidebar } from "@/components/utils/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import UploadAchievement from "@/components/prestasi/UploadAchievement";
+import Submit from "@/components/prestasi/Submit";
 
 function UnggahPrestasi(): JSX.Element {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="w-full h-full pb-4 bg-mainBG relative">
+      <main className="parent w-full h-fit min-h-screen pb-28 bg-mainBG relative">
         <SidebarTrigger className="absolute top-9 bg-white md:-left-4 z-30 border-2 border-mainBG" />
-        <div>
+        <div className="">
           <TitleBanner
             title="Entry Prestasi / Penghargaan"
             subTitle="Unggah bukti prestasi atau penghargaan yang pernah diperoleh."
           />
-
-          <div className="pl-6 pr-6">
-            <Navigation />
+          <Navigation />
+          <div className="px-6 py-3 bg-white m-2 rounded-lg border-1 border-gray-200">
             <FormSectionTitle title="Entry Prestasi / Penghargaan" />
-            <FormProgressBar progress={0.66} />
+            <FormProgressBar />
 
             <div className="flex justify-start mt-4">
               <Button className="bg-yellow-400 text-black font-semibold px-4 py-2 rounded">
@@ -35,34 +40,18 @@ function UnggahPrestasi(): JSX.Element {
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <FormInput
-                label="Nama Prestasi / Penghargaan"
-                placeholder="Detail Nama Prestasi atau Penghargaan"
-                required
-              />
-              <FormInput
-                label="Tahun Perolehan"
-                placeholder="Tahun Perolehan"
-                required
-              />
-              <FormInput
-                label="Penyelenggara"
-                placeholder="Penyelenggara Kompetisi atau Pemberi Penghargaan"
-                required
-              />
-              <UploadBox label="Upload Bukti Prestasi / Penghargaan" />
-              <FormSelect
-                label="Tingkat Prestasi / Penghargaan"
-                options={["Lokal", "Nasional", "Internasional"]}
-                required
-              />
-              <div className="flex items-end">
-                <Button className="bg-secondary text-white hover:text-primary border border-secondary py-2 px-11">
-                  Simpan
-                </Button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 mb-4">
+              <div className="col-span-1">
+                <AchivementName />
+                <Organizer />
+                <AchievementLevel />
+              </div>
+              <div className="col-span-1">
+                <AcquiredYear />
+                <UploadAchievement />
               </div>
             </div>
+            <Submit />
           </div>
         </div>
       </main>

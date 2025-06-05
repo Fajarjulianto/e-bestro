@@ -3,7 +3,8 @@ import {
   type ProgressBar,
   type Report,
   type Evaluation,
-  Student,
+  type Student,
+  type Achievement,
 } from "@/context/type";
 
 const useProgressBar = create<ProgressBar>((set) => ({
@@ -61,4 +62,21 @@ const useStudent = create<Student>((set) => ({
   updateProfilePicture: (newPicture) => set({ profilePicture: newPicture }),
 }));
 
-export { useProgressBar, useReport, useEvaluation, useStudent };
+const useAchievement = create<Achievement>((set) => ({
+  achievementName: null,
+  updateAchievementName: (newName: string | null) =>
+    set({ achievementName: newName }),
+  acquiredYear: null,
+  updateAcquiredYear: (newYear: number | null) =>
+    set({ acquiredYear: newYear }),
+  organizer: null,
+  updateOrganizer: (newOrganizer: string | null) =>
+    set({ organizer: newOrganizer }),
+  achievementFile: null,
+  updateAchievementFile: (newFile: File) => set({ achievementFile: newFile }),
+  achievementLevel: null,
+  updateAchievementLevel: (newLevel: string) =>
+    set({ achievementLevel: newLevel }),
+}));
+
+export { useProgressBar, useReport, useEvaluation, useStudent, useAchievement };
