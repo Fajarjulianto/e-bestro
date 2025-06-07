@@ -11,6 +11,7 @@ import AchievementLevel from "@/components/prestasi/AchivementLevel";
 import AchivementName from "@/components/prestasi/AchivementName";
 import Organizer from "@/components/prestasi/Organizer";
 import AcquiredYear from "@/components/prestasi/AcquiredYear";
+import List from "@/components/prestasi/List";
 
 // sidebar components
 import { AppSidebar } from "@/components/utils/app-sidebar";
@@ -50,6 +51,8 @@ function UnggahPrestasi(): JSX.Element {
                 <AcquiredYear />
                 <UploadAchievement />
               </div>
+              {/* Achievement List Section */}
+              <List />
             </div>
             <Submit />
           </div>

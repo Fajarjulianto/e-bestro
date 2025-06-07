@@ -225,6 +225,45 @@ async function getStudentProfile(
   }
 }
 
+type Achievement = {
+  id: string;
+  name: string;
+  year: number;
+  organizer: string;
+  level: string;
+  user_id: number;
+}[];
+
+async function getAchievement(
+  user_id: string
+): Promise<Achievement | string | undefined> {
+  try {
+    if (!user_id) {
+      throw new Error("User tidak ditemukan");
+    }
+    // console.log(user_id);
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from("achievement")
+      .select("*")
+      .eq("user_id", user_id);
+    if (error) {
+      throw new Error("Gagal memuat data, silakan coba beberapa saat lagi");
+    }
+
+    if (data.length === 0 || !data) {
+      throw new Error("Data tidak ditemukan");
+    }
+    console.log(data);
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error);
+      return error.message;
+    }
+  }
+}
+
 // ------------------ uploading ---------------------
 
 // uploading grade report to DB
@@ -336,6 +375,7 @@ export {
   getStudentNameById,
   getScholarshipApproval,
   getStudentData,
+  getAchievement,
   uploadGradeDocument,
   uploadPaymentDocument,
   uploadGradeReport,
