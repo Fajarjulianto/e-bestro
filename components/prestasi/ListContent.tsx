@@ -11,6 +11,9 @@ import Error from "./Error";
 import { createClient } from "@/utils/supabase/client";
 import { getAchievement } from "@/lib/users";
 
+// context
+import { useProgressBar, useAchievement } from "@/context/store";
+
 function ListContent(): JSX.Element {
   type Achievement = {
     id: string;
@@ -21,9 +24,19 @@ function ListContent(): JSX.Element {
     user_id: number;
   }[];
 
+  // context data
+  const { updateProgress } = useProgressBar();
+
+  const {
+    updateAchievementName,
+    updateAchievementLevel,
+    updateAcquiredYear,
+    updateOrganizer,
+  } = useAchievement();
+
   const [achievement, setAchievement] = React.useState<Achievement>([]);
 
-  const [error, setError] = React.useState<string | null>(null);
+  const [error, setError] = React.useState<string>("");
   React.useEffect(() => {
     async function getData() {
       const supabase = createClient();
@@ -43,6 +56,21 @@ function ListContent(): JSX.Element {
 
     getData();
   }, []);
+
+  function handleEdit(
+    name: string,
+    organizer: string,
+    year: number,
+    level: string
+  ) {
+    updateAchievementName(name);
+    updateAchievementLevel(level);
+    updateAcquiredYear(year);
+    updateOrganizer(organizer);
+
+    // updating the progress bar value
+    updateProgress(0.6);
+  }
   return (
     <div className="md:w-full w-[700px] overflow-x-auto">
       {Array.isArray(achievement) ? (
@@ -63,6 +91,9 @@ function ListContent(): JSX.Element {
                 height={20}
                 alt="edit icon"
                 className="w-4 h-5"
+                onClick={() => {
+                  handleEdit(item.name, item.organizer, item.year, item.level);
+                }}
               />
               <Image
                 src={"/delete-icon.png"}

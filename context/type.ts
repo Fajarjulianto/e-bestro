@@ -57,9 +57,9 @@ interface Achievement {
   organizer: string | null;
   updateOrganizer: (newOrganizer: string | null) => void;
   achievementFile: File | null;
-  updateAchievementFile: (newFile: File) => void;
+  updateAchievementFile: (newFile: File | null) => void;
   achievementLevel: string | null;
-  updateAchievementLevel: (newLevel: string) => void;
+  updateAchievementLevel: (newLevel: string | null) => void;
 }
 
 export {

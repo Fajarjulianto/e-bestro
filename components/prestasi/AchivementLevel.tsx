@@ -16,9 +16,13 @@ function AchievementLevel(): JSX.Element {
       updateProgress(Math.min(progress + 0.2, 1));
       hasUpdatedProgress.current = false;
     }
+
+    if (!hasUpdatedProgress.current && !achievementLevel) {
+      updateProgress(progress - Math.min(0.2, 1));
+    }
   }, [achievementLevel]);
 
-  console.log(progress);
+  // console.log(progress);
 
   return (
     <div className="relative ">
@@ -32,7 +36,7 @@ function AchievementLevel(): JSX.Element {
         onClick={() => setToggle(!toggle)}
         className="text-[#5E6366] bg-[#EFF1F9] flex justify-between px-3 rounded-lg py-2"
       >
-        Pilih Tingkat Prestasi
+        {achievementLevel ? achievementLevel : "Pilih Tingkat Prestasi"}
         <Image
           src={"/arrowButtonDown.png"}
           width={25}
@@ -53,7 +57,7 @@ function AchievementLevel(): JSX.Element {
           >
             <button
               className="text-[#5E6366]"
-              onClick={() => updateAchievementLevel(level[index])}
+              onClick={() => updateAchievementLevel(level)}
             >
               {level}
             </button>

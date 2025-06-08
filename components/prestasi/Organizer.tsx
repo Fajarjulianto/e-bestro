@@ -13,11 +13,11 @@ function Organizer(): JSX.Element {
 
   React.useEffect(() => {
     function handleProgressBar(): void {
-      if (organizer && toggle) {
-        updateProgress(progress + Math.min(0.1, 1));
+      if (organizer && toggle.current) {
+        updateProgress(progress + Math.min(0.2, 1));
         toggle.current = false;
       } else if (organizer === "" || (!organizer && !toggle)) {
-        updateProgress(progress - Math.min(0.1, 1));
+        updateProgress(progress - Math.min(0.2, 1));
         toggle.current = true;
       }
     }

@@ -62,11 +62,15 @@ async function getStudentData(user_id: string) {
       .select("*")
       .eq("user_id", user_id);
 
-    if (error) throw error;
+    if (error) {
+      console.log(error);
+      throw new Error("Gagal memuat data");
+    }
     return data;
   } catch (error) {
-    console.error("Error fetching student data:", error);
-    return error;
+    if (error instanceof Error) {
+      return error.message;
+    }
   }
 }
 
@@ -84,83 +88,6 @@ async function getScholarshipApproval(user_id: string) {
   } catch (error) {
     console.error("Error fetching scholarship approval:", error);
     return error;
-  }
-}
-
-// uploading payment PDF document to DB
-async function uploadPaymentDocument(file: File, user_id: string) {
-  const supabase = await createClient();
-  if (file?.type !== "application/pdf") {
-    throw new Error("File must be a PDF");
-  }
-
-  try {
-    const allowedFileSize = 5 * 1024 * 1024; // 5 MB
-    if (file?.size > allowedFileSize) {
-      throw new Error("File size exceeds 5 MB");
-    }
-
-    const sendFileNameToDB = supabase
-      .from("document")
-      .insert({
-        pdf: file.name,
-      })
-      .eq("user_id", user_id);
-
-    if ((await sendFileNameToDB) instanceof Error) {
-      throw new Error("Failed to insert file name into database");
-    }
-
-    const { error } = await supabase.storage
-      .from("document-bucket")
-      .upload(`pdf/${file.name}`, file);
-
-    if (error) {
-      throw new Error("File sudah ada di database");
-    }
-  } catch (error) {
-    console.error("Error uploading payment document:", error);
-    return error;
-  }
-}
-
-// uploading grade PDF document to DB
-async function uploadGradeDocument(file: File, user_id: string) {
-  try {
-    const supabase = await createClient();
-    if (file?.type !== "application/pdf") {
-      throw new Error("File must be a PDF");
-    }
-
-    const allowedFileSize = 5 * 1024 * 1024; // 5 MB
-
-    if (file?.size > allowedFileSize) {
-      throw new Error("File size exceeds 5 MB");
-    }
-
-    const sendFileNameToDB = supabase
-      .from("document")
-      .insert({
-        pdf: file.name,
-      })
-      .eq("user_id", user_id);
-
-    if ((await sendFileNameToDB) instanceof Error) {
-      throw new Error("File sudah ada di database");
-    }
-
-    const { error } = await supabase.storage
-      .from("document-bucket")
-      .upload(`pdf/${file.name}`, file);
-
-    if (error) {
-      throw new Error("File sudah ada di database");
-    }
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log(error);
-      return error;
-    }
   }
 }
 
@@ -239,7 +166,7 @@ async function getAchievement(
 ): Promise<Achievement | string | undefined> {
   try {
     if (!user_id) {
-      throw new Error("User tidak ditemukan");
+      throw new Error("Terjadi kesalahan, silakan login kembali");
     }
     // console.log(user_id);
     const supabase = await createClient();
@@ -254,7 +181,7 @@ async function getAchievement(
     if (data.length === 0 || !data) {
       throw new Error("Data tidak ditemukan");
     }
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     if (error instanceof Error) {
@@ -265,6 +192,93 @@ async function getAchievement(
 }
 
 // ------------------ uploading ---------------------
+
+// uploading payment PDF document to DB
+async function uploadPaymentDocument(
+  file: File,
+  user_id: string
+): Promise<string | void> {
+  try {
+    const supabase = await createClient();
+    if (file?.type !== "application/pdf") {
+      throw new Error("File must be a PDF");
+    }
+
+    // checking the file size
+    const allowedFileSize = 5 * 1024 * 1024; // 5 MB
+    if (file?.size > allowedFileSize) {
+      throw new Error("File size exceeds 5 MB");
+    }
+
+    // recreating file name
+    const fileName = file.name.split(".")[0] + Date.now() + ".pdf";
+
+    // registering file name to DB based on user_id
+    const sendFileNameToDB = await supabase
+      .from("document")
+      .insert({
+        pdf: fileName,
+      })
+      .eq("user_id", user_id);
+
+    if (sendFileNameToDB.error) {
+      throw new Error("Gagal mengunggah file, silakan coba beberapa saat lagi");
+    }
+
+    const { error } = await supabase.storage
+      .from("document-bucket")
+      .upload(`pdf/${fileName}`, file);
+
+    if (error) {
+      console.log(error);
+      throw new Error("File sudah ada di database");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      return error.message;
+    }
+  }
+}
+
+// uploading grade PDF document to DB
+async function uploadGradeDocument(file: File, user_id: string) {
+  try {
+    const supabase = await createClient();
+    if (file?.type !== "application/pdf") {
+      throw new Error("File must be a PDF");
+    }
+
+    const allowedFileSize = 5 * 1024 * 1024; // 5 MB
+
+    if (file?.size > allowedFileSize) {
+      throw new Error("ukuran file melebihi 5 MB");
+    }
+
+    const sendFileNameToDB = supabase
+      .from("document")
+      .insert({
+        pdf: file.name,
+      })
+      .eq("user_id", user_id);
+
+    if ((await sendFileNameToDB) instanceof Error) {
+      throw new Error("File sudah ada di database");
+    }
+
+    const { error } = await supabase.storage
+      .from("document-bucket")
+      .upload(`pdf/${file.name}`, file);
+
+    if (error) {
+      throw new Error("File sudah ada di database");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error);
+      return error;
+    }
+  }
+}
 
 // uploading grade report to DB
 async function uploadGradeReport({
@@ -333,17 +347,6 @@ async function uploadSelfProgression({
 }): Promise<string | void> {
   const supabase = await createClient();
   try {
-    const { error } = await supabase.from("selfProgression").insert({
-      academicProgress,
-      challenges,
-      nonAcademicEvaluation,
-      solvingChallenge,
-      academicTarget,
-      nonAcademicTarget,
-      strategy,
-      user_id,
-    });
-
     if (
       !academicProgress ||
       !challenges ||
@@ -355,6 +358,16 @@ async function uploadSelfProgression({
     ) {
       throw new Error("Mohon lengkapi semua field sebelum mengirim.");
     }
+    const { error } = await supabase.from("selfProgression").insert({
+      academicProgress,
+      challenges,
+      nonAcademicEvaluation,
+      solvingChallenge,
+      academicTarget,
+      nonAcademicTarget,
+      strategy,
+      user_id,
+    });
 
     if (error) {
       console.log(error);
@@ -364,6 +377,105 @@ async function uploadSelfProgression({
     if (error instanceof Error) {
       console.error("Error uploading self progression:", error);
       return error?.message;
+    }
+  }
+}
+
+async function uploadAchievementFile(
+  user_id: string,
+  file: File
+): Promise<void | string> {
+  try {
+    // error handling file before upload
+    if (!file) throw new Error("Tidak ada file yang dipilih");
+    if (file.type !== "application/pdf") {
+      throw new Error("Hanya diizinkan mengunggah file PDF");
+    }
+
+    // checking the file size
+    const allowedFileSize = 5 * 1024 * 1024; // 5 MB
+
+    if (file?.size > allowedFileSize) {
+      throw new Error("ukuran file melebihi 5 MB");
+    }
+
+    // changing the file name to be unique
+    const fileName = file.name.split(".")[0] + Date.now() + ".pdf";
+    console.log(fileName);
+
+    // uploading the file
+    const supabase = await createClient();
+    const { error } = await supabase.storage
+      .from("document-bucket")
+      .upload(`pdf/${fileName}`, file);
+
+    if (error) {
+      console.log(error);
+      throw new Error(error.message);
+    }
+
+    // registering file name to DB
+    const uploadFIleName = await supabase
+      .from("document")
+      .insert(fileName)
+      .eq("user_id", user_id);
+
+    if (uploadFIleName?.error) {
+      console.log(uploadFIleName.error);
+      throw new Error("Gagal mengunggah file");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error);
+      return error.message;
+    }
+  }
+}
+
+type AchievementData = {
+  achievementName: string;
+  achievementLevel: string;
+  acquiredYear: number;
+  organizer: string;
+  user_id: string;
+};
+
+// uploading achievement data to DB, then it will be checked by admin
+async function uploadAchievementData({
+  achievementName,
+  achievementLevel,
+  acquiredYear,
+  organizer,
+  user_id,
+}: AchievementData): Promise<string | void> {
+  try {
+    if (!user_id) {
+      return "Terjadi kesalahan, silakan login kembali";
+    }
+
+    if (!achievementLevel || !achievementName || !acquiredYear || !organizer) {
+      return "Silakan lengkapi semua field sebelum mengirim";
+    }
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from("pendingAchievement")
+      .insert({
+        name: achievementName,
+        year: acquiredYear,
+        organizer,
+        level: achievementLevel,
+        user_id,
+      })
+      .eq("user_id", user_id);
+
+    if (error) {
+      console.log(error);
+      throw new Error("Gagal mengunggah data, silakan coba beberapa saat lagi");
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error);
+      return error.message;
     }
   }
 }
@@ -380,4 +492,6 @@ export {
   uploadPaymentDocument,
   uploadGradeReport,
   uploadSelfProgression,
+  uploadAchievementFile,
+  uploadAchievementData,
 };

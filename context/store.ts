@@ -73,9 +73,10 @@ const useAchievement = create<Achievement>((set) => ({
   updateOrganizer: (newOrganizer: string | null) =>
     set({ organizer: newOrganizer }),
   achievementFile: null,
-  updateAchievementFile: (newFile: File) => set({ achievementFile: newFile }),
+  updateAchievementFile: (newFile: File | null) =>
+    set({ achievementFile: newFile }),
   achievementLevel: null,
-  updateAchievementLevel: (newLevel: string) =>
+  updateAchievementLevel: (newLevel: string | null) =>
     set({ achievementLevel: newLevel }),
 }));
 
