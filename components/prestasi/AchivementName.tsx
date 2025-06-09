@@ -37,7 +37,7 @@ function AchivementName(): JSX.Element {
       <input
         type="text"
         placeholder="Detail Nama Prestasi atau Penghargaan"
-        // value={value}
+        value={achievementName ? achievementName : ""}
         onChange={(event) => handleChange(event.target.value as string)}
         required={true}
         className="w-full bg-[#EFF1F9] text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring"

@@ -33,6 +33,7 @@ function Organizer(): JSX.Element {
       <h5 className="font-inter text-[#5E6366]">Pengelenggara :</h5>
       <input
         type="text"
+        value={organizer ? organizer : ""}
         placeholder="Pemberi Penghargaan"
         className="bg-[#EFF1F9] py-2 pl-2 rounded-lg w-full line-clamp-1"
         onChange={(event) => handleOrganizer(event.target.value as string)}

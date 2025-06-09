@@ -37,6 +37,7 @@ function AcquiredYear(): JSX.Element {
       <input
         type="number"
         placeholder="Tahun Perolehan"
+        value={acquiredYear ? acquiredYear : ""}
         onChange={(event) => handleChange(Number(event.target.value) as number)}
         required={true}
         className="w-full bg-[#EFF1F9] text-gray-900 rounded-lg px-3 py-2 focus:outline-none focus:ring"
