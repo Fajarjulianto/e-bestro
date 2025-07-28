@@ -70,7 +70,8 @@ export function TeamSwitcher() {
                     {profile?.studentID || "Unknown"}
                   </span>
                   <span className="truncate text-md font-bold line-clamp-1">
-                    {profile?.name || "Guest"}
+                    {"Guest"}
+                    {/* {profile?.name || "Guest"} */}
                   </span>
                 </div>
               </div>

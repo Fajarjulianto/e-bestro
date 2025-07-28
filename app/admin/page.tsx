@@ -1,65 +1,159 @@
 "use client";
 
-import React, { useEffect, useState, JSX } from "react";
-// import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import KonfirmasiBerkas from "@/components/admin/page";
-
+import React, { useState, useEffect, useCallback, JSX } from "react";
+import Head from "next/head";
 import { createClient } from "@/utils/supabase/client";
+import SubmissionsTable from "@/components/admin/SubmissionTable";
+import ReviewModal from "@/components/admin/ReviewModal";
+import { Berkas } from "@/types/database";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/utils/app-sidebar";
+import TitleBanner from "@/components/utils/TitleBanner";
 
-interface Summary {
-  totalUsers: number;
-  totalReports: number;
-  totalAchievements: number;
-}
+type SubmissionWithProfile = Berkas & {
+  profiles:
+    | {
+        full_name: string | null;
+        nim: string | null;
+      }[]
+    | null;
+};
 
-export default function AdminDashboard(): JSX.Element {
-  const [summary, setSummary] = useState<Summary>({
-    totalUsers: 0,
-    totalReports: 0,
-    totalAchievements: 0,
-  });
+const supabase = createClient();
 
-  const supabase = createClient();
+function AdminDashboardPage(): JSX.Element {
+  const [submissions, setSubmissions] = useState<SubmissionWithProfile[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isUpdating, setIsUpdating] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const [{ count: users }, { count: reports }, { count: achievements }] =
-        await Promise.all([
-          supabase.from("profiles").select("*", { count: "exact", head: true }),
-          supabase
-            .from("laporan_khs")
-            .select("*", { count: "exact", head: true }),
-          supabase.from("prestasi").select("*", { count: "exact", head: true }),
-        ]);
+  // State untuk modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedSubmission, setSelectedSubmission] =
+    useState<SubmissionWithProfile | null>(null);
 
-      setSummary({
-        totalUsers: users || 0,
-        totalReports: reports || 0,
-        totalAchievements: achievements || 0,
-      });
-    };
+  const fetchSubmissions = useCallback(async () => {
+    setLoading(true);
+    setError(null);
 
-    fetchData();
+    const { data, error: fetchError } = await supabase
+      .from("berkas")
+      .select(
+        `
+        id, created_at, jenis_laporan, file_url, status, user_id, rejection_reason,
+        profiles (full_name, nim)
+      `
+      )
+      .eq("status", "pending")
+      .order("created_at", { ascending: true });
+
+    if (fetchError) {
+      console.error("Supabase fetch error:", fetchError);
+      setError("Gagal memuat daftar pengajuan.");
+    } else {
+      setSubmissions(data as SubmissionWithProfile[]);
+    }
+    setLoading(false);
   }, []);
+  useEffect(() => {
+    fetchSubmissions();
+  }, [fetchSubmissions]);
+
+  const handleReview = (submission: SubmissionWithProfile) => {
+    setSelectedSubmission(submission);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    if (isUpdating) return;
+    setIsModalOpen(false);
+    setSelectedSubmission(null);
+  };
+
+  const updateStatus = async (
+    id: number,
+    status: "accepted" | "rejected",
+    reason: string | null
+  ) => {
+    setIsUpdating(true);
+    const { error: updateError } = await supabase
+      .from("berkas")
+      .update({ status: status, rejection_reason: reason })
+      .eq("id", id);
+
+    if (updateError) {
+      alert(`Gagal memperbarui status: ${updateError.message}`);
+    } else {
+      setSubmissions((currentSubmissions) =>
+        currentSubmissions.filter((submission) => submission.id !== id)
+      );
+      handleCloseModal();
+    }
+    setIsUpdating(false);
+  };
+
+  const handleApprove = (id: number) => {
+    updateStatus(id, "accepted", null);
+  };
+
+  const handleReject = (id: number, reason: string) => {
+    if (!reason.trim()) {
+      alert("Alasan penolakan tidak boleh kosong.");
+      return;
+    }
+    updateStatus(id, "rejected", reason);
+  };
+
+  const renderContent = () => {
+    if (loading) {
+      return <p>Memuat data pengajuan...</p>;
+    }
+    if (error) {
+      return <p className="text-red-500">{error}</p>;
+    }
+    if (submissions.length === 0) {
+      return (
+        <div className="bg-white p-6 rounded-lg shadow-md text-center text-gray-500">
+          Tidak ada berkas baru yang perlu direview saat ini.
+        </div>
+      );
+    }
+    return (
+      <SubmissionsTable submissions={submissions} onReview={handleReview} />
+    );
+  };
 
   return (
-    <main className="p-8">
-      <h1 className="text-2xl font-bold mb-6">Dashboard Admin</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card title="Total Mahasiswa" value={summary.totalUsers} />
-        <Card title="Pelaporan Masuk" value={summary.totalReports} />
-        <Card title="Prestasi Diunggah" value={summary.totalAchievements} />
-      </div>
-      <KonfirmasiBerkas />
-    </main>
+    <>
+      <Head>
+        <title>Admin Dashboard - BESTRO</title>
+      </Head>
+      <SidebarProvider>
+        <AppSidebar />
+        <main className="w-full min-h-screen pb-10 bg-gray-100 relative">
+          <SidebarTrigger className="absolute top-9 bg-white md:-left-4 z-30 border-2 border-mainBG" />
+          <div>
+            <TitleBanner
+              title="Dashboard Review Berkas"
+              subTitle="Review dan kelola laporan dari penerima beasiswa"
+            />
+            <div className="px-4 md:px-6 py-6">
+              <div className="container mx-auto">{renderContent()}</div>
+            </div>
+          </div>
+        </main>
+
+        <ReviewModal
+          isOpen={isModalOpen}
+          submission={selectedSubmission}
+          onClose={handleCloseModal}
+          onApprove={handleApprove}
+          onReject={handleReject}
+          isUpdating={isUpdating}
+        />
+      </SidebarProvider>
+    </>
   );
 }
 
-function Card({ title, value }: { title: string; value: number }) {
-  return (
-    <div className="bg-white shadow rounded-lg p-6 text-center">
-      <h2 className="text-gray-600 text-lg">{title}</h2>
-      <p className="text-3xl font-bold text-secondary">{value}</p>
-    </div>
-  );
-}
+export default AdminDashboardPage;

@@ -23,7 +23,7 @@ const eventListData: EventListItemData[] = [
     monthYear: 'MEI 2025',
     type: 'Kompetisi BESTRO',
     title: 'HARVESTON - Agriculture Innovation Award 2025',
-    description: 'Harveston - Agriculture Innovation Award 2025', // Deskripsi bisa lebih singkat jika diperlukan untuk list item
+    description: 'Harveston - Agriculture Innovation Award 2025',
   },
   {
     id: '3',

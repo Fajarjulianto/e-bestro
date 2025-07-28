@@ -11,7 +11,7 @@ function NavigationElement({
   imgUrl: string;
 }): JSX.Element {
   return (
-    <div className="bg-primary  py-1 pl-1 pr-4 md:pr-2 flex gap-2 relative rounded-xl">
+    <div className="bg-primary  py-1 pl-1 pr-4 md:pr-4 flex gap-2 relative rounded-xl font-poppins">
       <div className="bg-white p-[calc(var(--spacing) * 0.1)] rounded-full">
         <Image
           src={imgUrl}

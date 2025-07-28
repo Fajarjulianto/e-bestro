@@ -277,7 +277,7 @@ function SidebarTrigger({
       {...props}
     >
       <Image
-        src={arrowDirection ? "/arrowButtonLeft.png" : "/arrowButtonRight.png"}
+        src={arrowDirection ? "/arrowButtonRight.png" : "/arrowButtonLeft.png"}
         height={7}
         width={7}
         alt="arrow left icon"
