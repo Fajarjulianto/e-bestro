@@ -48,4 +48,24 @@ interface Student {
   profilePicture: string;
   updateProfilePicture: (params: string) => void;
 }
-export { type ProgressBar, type Report, type Evaluation, type Student };
+
+interface Achievement {
+  achievementName: string | null;
+  updateAchievementName: (newName: string | null) => void;
+  acquiredYear: number | null;
+  updateAcquiredYear: (newYear: number | null) => void;
+  organizer: string | null;
+  updateOrganizer: (newOrganizer: string | null) => void;
+  achievementFile: File | null;
+  updateAchievementFile: (newFile: File | null) => void;
+  achievementLevel: string | null;
+  updateAchievementLevel: (newLevel: string | null) => void;
+}
+
+export {
+  type ProgressBar,
+  type Report,
+  type Evaluation,
+  type Student,
+  type Achievement,
+};

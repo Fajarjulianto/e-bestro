@@ -6,7 +6,7 @@ import React from "react";
 import { useProgressBar } from "@/context/store";
 
 interface Progress {
-  progress: number; // 0 to 1
+  progress: number;
 }
 
 export default function FormProgressBar() {

@@ -5,9 +5,6 @@ import Card from "@/components/dashboard/Card";
 import Semester from "@/components/dashboard/Semester";
 import EventCalendar from "@/components/dashboard/EventCalendar";
 
-// API
-// import { getUserData } from "@/lib/users";
-
 //sidebar
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
