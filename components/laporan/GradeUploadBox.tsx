@@ -29,7 +29,7 @@ function GradeUploadBox({ label, onFileSelect }: UploadBoxProps) {
       console.log(gradeFile.name);
       updateProgress(progress + 0.2);
     }
-  }, [gradeFile]);
+  }, [gradeFile, progress, updateProgress]);
 
   return (
     <div className="w-full">

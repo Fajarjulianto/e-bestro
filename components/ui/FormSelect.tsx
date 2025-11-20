@@ -30,7 +30,7 @@ export function FormSelect({
       updateProgress(Math.min(progress + 0.1, 1)); // Ensure progress doesn't exceed 1
       hasUpdatedProgress.current = true;
     }
-  }, [semester]);
+  }, [semester, progress, updateProgress]);
 
   return (
     <div>

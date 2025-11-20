@@ -38,7 +38,7 @@ function FormInputPayment({
       updateProgress(Math.min(progress - 0.1, 1));
       isHasValue.current = false;
     }
-  }, [paymentDate]);
+  }, [paymentDate, updateProgress, progress]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const data = String(event.target.value);

@@ -23,7 +23,7 @@ function Organizer(): JSX.Element {
     }
 
     handleProgressBar();
-  }, [organizer]);
+  }, [organizer, progress, updateProgress]);
 
   function handleOrganizer(value: string): void {
     updateOrganizer(value);

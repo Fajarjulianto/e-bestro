@@ -43,34 +43,35 @@ export function NavUser({
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <SidebarMenuButton
-              size="lg"
-              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+            <div
+              onClick={async () => {
+                await signOut();
+              }}
             >
-              <Avatar className="h-6 w-6">
-                {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
-                <Image
-                  src={user.avatar}
-                  width={40}
-                  height={40}
-                  alt={user.name}
-                  className="w-6 h-6 "
-                />
-                {/* <AvatarFallback className="rounded-lg">CN</AvatarFallback> */}
-              </Avatar>
-              <div className="flex text-left text-sm leading-tight">
-                <span
-                  onClick={async () => {
-                    await signOut();
-                  }}
-                  className="truncate font-medium text-red-600 font-ubuntu"
-                >
-                  {user.name}
-                </span>
-                {/* <span className="truncate text-xs">{user.email}</span> */}
-              </div>
-              {/* <ChevronsUpDown className="ml-auto size-4" /> */}
-            </SidebarMenuButton>
+              <SidebarMenuButton
+                size="lg"
+                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+              >
+                <Avatar className="h-6 w-6">
+                  {/* <AvatarImage src={user.avatar} alt={user.name} /> */}
+                  <Image
+                    src={user.avatar}
+                    width={40}
+                    height={40}
+                    alt={user.name}
+                    className="w-6 h-6 "
+                  />
+                  {/* <AvatarFallback className="rounded-lg">CN</AvatarFallback> */}
+                </Avatar>
+                <div className="flex text-left text-sm leading-tight">
+                  <span className="truncate font-medium text-red-600 font-ubuntu">
+                    {user.name}
+                  </span>
+                  {/* <span className="truncate text-xs">{user.email}</span> */}
+                </div>
+                {/* <ChevronsUpDown className="ml-auto size-4" /> */}
+              </SidebarMenuButton>
+            </div>
           </DropdownMenuTrigger>
         </DropdownMenu>
       </SidebarMenuItem>

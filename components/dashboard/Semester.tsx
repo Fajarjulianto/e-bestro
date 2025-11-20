@@ -36,7 +36,7 @@ function Semester(): JSX.Element {
         return;
       }
 
-      console.log(scholarshipData);
+      // console.log(scholarshipData);
       setSemesterData(scholarshipData as SemesterData);
     }
 

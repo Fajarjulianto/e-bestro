@@ -20,7 +20,7 @@ function TextSolvingChallenge(): JSX.Element {
       updateProgress(Math.max(progress - 0.1, 0));
       isHasValue.current = false;
     }
-  }, [solvingChallenge]);
+  }, [solvingChallenge, progress, updateProgress]);
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
     const data = event.target.value;

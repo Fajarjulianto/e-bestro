@@ -27,12 +27,14 @@ export function TeamSwitcher() {
     const userData = await supabase.auth.getUser();
     const user_id = userData.data.user?.id;
 
+    // console.log(userData);
     if (!user_id) {
       setProfile(null);
       return;
     }
 
     const data = await getStudentProfile(user_id);
+    // console.log(data);
     if (Array.isArray(data)) {
       setProfile({
         studentID: data[0].studentID,
@@ -47,6 +49,7 @@ export function TeamSwitcher() {
   React.useEffect(() => {
     fetchData();
   }, [fetchData]);
+  console.log(profile?.profilePicture);
 
   return (
     <SidebarMenu>
@@ -70,8 +73,8 @@ export function TeamSwitcher() {
                     {profile?.studentID || "Unknown"}
                   </span>
                   <span className="truncate text-md font-bold line-clamp-1">
-                    {"Guest"}
-                    {/* {profile?.name || "Guest"} */}
+                    {/* {"Guest"} */}
+                    {profile?.name || "Guest"}
                   </span>
                 </div>
               </div>

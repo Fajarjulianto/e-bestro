@@ -39,13 +39,15 @@ async function getGradeTarget(user_id: string) {
 async function getStudentNameById(user_id: string) {
   try {
     const supabase = await createClient();
-    console.log(user_id);
+    // console.log(user_id);
     const { data, error } = await supabase
       .from("student")
       .select("name")
       .eq("user_id", user_id);
 
     if (error) throw error;
+    // console.log(data);
+    // console.log(error);
     return data;
   } catch (error) {
     console.error("Error fetching student name:", error);

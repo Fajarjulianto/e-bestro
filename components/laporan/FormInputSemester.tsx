@@ -37,7 +37,7 @@ function FormInputSemester({
       updateProgress(Math.min(progress - 0.2, 1));
       isHasValue.current = false;
     }
-  }, [semesterGradeIndex]);
+  }, [semesterGradeIndex, updateProgress, progress]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const data = Number(event.target.value);

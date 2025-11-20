@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Berkas } from '@/types/database';
-import Button from '@/components/Button'; // Gunakan komponen Button Anda
+import React, { useState, useEffect } from "react";
+import { Berkas } from "@/types/database";
+import Button from "@/components/Button"; // Gunakan komponen Button Anda
 
 interface ReviewModalProps {
   submission: Berkas | null;
@@ -12,14 +12,19 @@ interface ReviewModalProps {
 }
 
 const ReviewModal: React.FC<ReviewModalProps> = ({
-  submission, isOpen, onClose, onApprove, onReject, isUpdating
+  submission,
+  isOpen,
+  onClose,
+  onApprove,
+  onReject,
+  isUpdating,
 }) => {
-  const [reason, setReason] = useState('');
+  const [reason, setReason] = useState("");
 
   useEffect(() => {
     // Reset reason saat modal dibuka dengan submission baru
     if (submission) {
-      setReason(submission.rejection_reason || '');
+      setReason(submission.rejection_reason || "");
     }
   }, [submission]);
 
@@ -27,7 +32,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
 
   const handleReject = () => {
     if (!reason.trim()) {
-      alert('Alasan penolakan wajib diisi.');
+      alert("Alasan penolakan wajib diisi.");
       return;
     }
     onReject(submission.id, reason);
@@ -42,9 +47,11 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
             {submission.profiles?.full_name} - {submission.profiles?.nim}
           </p>
         </div>
-        
+
         <div className="p-6 space-y-4">
-          <p><strong>Jenis Laporan:</strong> {submission.jenis_laporan}</p>
+          <p>
+            <strong>Jenis Laporan:</strong> {submission.jenis_laporan}
+          </p>
           <a
             href={submission.file_url}
             target="_blank"
@@ -54,7 +61,10 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
             Lihat Berkas Unggahan
           </a>
           <div className="mt-4">
-            <label htmlFor="rejectionReason" className="block text-sm font-medium text-gray-700 mb-1">
+            <label
+              htmlFor="rejectionReason"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
               Catatan / Alasan Penolakan
             </label>
             <textarea
@@ -72,7 +82,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
           <Button
             className="text-gray-600"
             onClick={onClose}
-            disabled={isUpdating}
+            // disabled={isUpdating}
           >
             Batal
           </Button>
@@ -80,16 +90,16 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
             <Button
               className="bg-red-600 hover:bg-red-700 text-white"
               onClick={handleReject}
-              disabled={isUpdating || !reason.trim()}
+              // disabled={isUpdating || !reason.trim()}
             >
-              {isUpdating ? 'Menolak...' : 'Tolak'}
+              {isUpdating ? "Menolak..." : "Tolak"}
             </Button>
             <Button
               className="bg-green-600 hover:bg-green-700 text-white"
               onClick={() => onApprove(submission.id)}
-              disabled={isUpdating}
+              // disabled={isUpdating}
             >
-              {isUpdating ? 'Menerima...' : 'Terima'}
+              {isUpdating ? "Menerima..." : "Terima"}
             </Button>
           </div>
         </div>

@@ -2,53 +2,48 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
 import { createClient } from "@/utils/supabase/server";
 
 export async function login(formData: FormData) {
   const supabase = await createClient();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const userData = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
 
-  if (!userData.email && !userData.password) {
-    return "Please input requiered fields";
-  }
+  // if (!email || !password) {
+  //   return "Please input required fields";
+  // }
 
-  const { error } = await supabase.auth.signInWithPassword(userData);
-
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+  console.log(data);
+  console.log(error);
   if (error) {
-    redirect("/error");
+    return redirect("/error");
   }
 
-  revalidatePath("/", "layout");
-  redirect("/dashboard");
+  revalidatePath("/");
+  return redirect("/dashboard");
 }
 
 export async function signup(formData: FormData) {
   const supabase = await createClient();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
 
-  if (!data.email && !data.password) {
-    return "Please input requiered fields";
+  if (!email || !password) {
+    return "Please input required fields";
   }
 
-  const { error } = await supabase.auth.signUp(data);
+  const { error } = await supabase.auth.signUp({ email, password });
 
   if (error) {
-    redirect("/error");
+    return redirect("/error");
   }
 
-  revalidatePath("/", "layout");
-  redirect("/dashboard");
+  revalidatePath("/");
+  return redirect("/dashboard");
 }

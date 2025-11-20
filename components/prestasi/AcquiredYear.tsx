@@ -23,7 +23,7 @@ function AcquiredYear(): JSX.Element {
     }
 
     handleProgressBar();
-  }, [acquiredYear]);
+  }, [acquiredYear, progress, updateProgress]);
 
   function handleChange(value: number): void {
     updateAcquiredYear(value);

@@ -37,7 +37,7 @@ function FormInputCumulativeGrade({
       updateProgress(Math.min(progress - 0.2, 1));
       isHasValue.current = false;
     }
-  }, [cumulativeGradeIndex]);
+  }, [cumulativeGradeIndex, progress, updateProgress]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const data = Number(event.target.value);

@@ -16,8 +16,13 @@ export async function createClient() {
         },
         setAll(cookiesToSet) {
           try {
+            const tokenMaxAge: number = 1000 * 60 * 60 * 24 * 4;
             cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, { ...options, sameSite: "strict" })
+              cookieStore.set(name, value, {
+                ...options,
+                sameSite: "strict",
+                maxAge: tokenMaxAge,
+              })
             );
           } catch {
             // The `setAll` method was called from a Server Component.

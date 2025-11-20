@@ -4,6 +4,9 @@ import React, { JSX } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { getStudentNameById } from "@/lib/users";
 
+// Types
+import type { Student } from "@/types/student";
+
 function BannerStudentName(): JSX.Element {
   const [name, setName] = React.useState<string>();
 
@@ -17,7 +20,9 @@ function BannerStudentName(): JSX.Element {
         setName("Server Error");
       }
 
-      const studentData = await getStudentNameById(user_id);
+      const studentData = (await getStudentNameById(user_id)) as Student[];
+      console.log(studentData);
+      console.log(data);
 
       if (!studentData) {
         setName("User Not Found");

@@ -21,7 +21,7 @@ function TextNonAcademicEvaluation(): JSX.Element {
       updateProgress(Math.max(progress - 0.2, 0));
       isHasValue.current = false;
     }
-  }, [nonAcademicEvaluation]);
+  }, [nonAcademicEvaluation, progress, updateProgress]);
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
     const data = event.target.value;

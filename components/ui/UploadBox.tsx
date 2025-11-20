@@ -28,7 +28,7 @@ export default function UploadBox({ label, onFileSelect }: UploadBoxProps) {
       console.log(gradeFile);
       updateProgress(progress + 0.2);
     }
-  }, [gradeFile]);
+  }, [gradeFile, progress, updateProgress]);
 
   return (
     <div className="w-full">

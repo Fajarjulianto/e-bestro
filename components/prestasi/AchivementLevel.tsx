@@ -20,7 +20,7 @@ function AchievementLevel(): JSX.Element {
     if (!hasUpdatedProgress.current && !achievementLevel) {
       updateProgress(progress - Math.min(0.2, 1));
     }
-  }, [achievementLevel]);
+  }, [achievementLevel, progress, updateProgress]);
 
   // console.log(progress);
 

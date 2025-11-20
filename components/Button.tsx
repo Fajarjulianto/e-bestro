@@ -5,7 +5,7 @@ interface ButtonProps {
   onClick?: () => void;
   type?: "button" | "submit" | "reset";
   className?: string;
-  formAction?: () => void;
+  formAction?: (formData: FormData) => void | Promise<void>;
 }
 
 export default function Button({

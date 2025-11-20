@@ -29,7 +29,7 @@ function PaymentUploadBox({ label, onFileSelect }: UploadBoxProps) {
       console.log(paymentFile.name);
       updateProgress(progress + 0.2);
     }
-  }, [paymentFile]);
+  }, [paymentFile, progress, updateProgress]);
 
   return (
     <div className="w-full">

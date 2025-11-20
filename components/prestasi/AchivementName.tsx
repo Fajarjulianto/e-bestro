@@ -24,7 +24,7 @@ function AchivementName(): JSX.Element {
       updateProgress(progress - Math.min(0.2, 1));
       toggle.current = true;
     }
-  }, [achievementName]);
+  }, [achievementName, progress, updateProgress]);
 
   return (
     <div className="">

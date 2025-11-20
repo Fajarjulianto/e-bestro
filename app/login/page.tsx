@@ -1,5 +1,3 @@
-"use client";
-
 import "@/styles/globals.css";
 
 import React, { JSX } from "react";
@@ -10,6 +8,7 @@ import LogoGroup from "@/components/LogoGroup";
 import RightPanel from "@/components/RightPanel";
 import InputField from "@/components/login/inputField";
 import Button from "@/components/Button";
+import Link from "next/link";
 
 //supabase
 import { login } from "./action";
@@ -42,10 +41,19 @@ export default function Page(): JSX.Element {
               required={true}
             />
 
-            <div className="text-sm text-gray-500 cursor-pointer hover:underline text-right">
+            <Link
+              href={"/reset-password-request"}
+              className="text-sm text-gray-500 cursor-pointer hover:underline text-right"
+            >
               Forgot Password?
-            </div>
-           <Button  formAction={login} type="submit" className="!text-white w-full rounded-md py-2 bg-secondary">Login</Button>
+            </Link>
+            <Button
+              formAction={login}
+              type="submit"
+              className="!text-white w-full rounded-md py-2 bg-secondary"
+            >
+              Login
+            </Button>
           </form>
 
           <p className="mt-8 text-xs text-gray-500 text-center">

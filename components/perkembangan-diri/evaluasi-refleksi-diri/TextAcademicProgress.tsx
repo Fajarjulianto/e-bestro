@@ -22,7 +22,7 @@ function TextAcademicProgress(): JSX.Element {
       updateProgress(Math.max(progress - 0.2, 0));
       isHasValue.current = false;
     }
-  }, [academicProgress]);
+  }, [academicProgress, progress, updateProgress]);
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>): void {
     const data = event.target.value;

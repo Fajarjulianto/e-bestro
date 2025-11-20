@@ -27,7 +27,7 @@ function UploadAchievement(): JSX.Element {
     }
 
     handleProgressBar();
-  }, [achievementFile]);
+  }, [achievementFile, progress, updateProgress]);
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
